@@ -10,26 +10,22 @@
 
 ## Installation
 
-### From the Marketplace (recommended)
+### Claude Code (Recommended)
+
+```bash
+# Add the Flutter Dev Assistant from the marketplace
+/marketplace add andreimbro/flutter-dev-assistant
+
+# Install the plugin
+/plugin install flutter-dev-assistant@flutter-dev-assistant
+```
+
+### From the UI
 
 1. Open Claude Code
 2. Go to **Extensions** → **Marketplace**
 3. Search for `flutter-dev-assistant`
 4. Click **Install**
-
-### From the command palette
-
-Open the command palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) and run:
-
-```
-Claude Code: Install Plugin from URL
-```
-
-Then paste:
-
-```
-https://github.com/andreimbro/flutter-dev-assistant-claude
-```
 
 ### Manual install
 
