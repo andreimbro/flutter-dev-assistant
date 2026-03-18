@@ -14,10 +14,10 @@
 
 ```bash
 # Add the Flutter Dev Assistant from the marketplace
-/marketplace add andreimbro/flutter-dev-assistant
+/marketplace add andreimbro/flutter-dev-assistant-claude
 
 # Install the plugin
-/plugin install flutter-dev-assistant@flutter-dev-assistant
+/plugin install flutter-dev-assistant@flutter-dev-assistant-claude
 ```
 
 ### From the UI

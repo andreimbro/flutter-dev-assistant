@@ -37,6 +37,15 @@
     "assistants/package-advisor.md"
   ],
   "skills": ["skills/"],
-  "commands": ["commands/"],
-  "hooks":["hooks/"]
+  "commands": [
+    "commands/flutter-help.md",
+    "commands/flutter-init.md",
+    "commands/flutter-verify.md",
+    "commands/flutter-plan.md",
+    "commands/flutter-checkpoint.md",
+    "commands/flutter-orchestrate.md",
+    "commands/flutter-security.md",
+    "commands/flutter-learn.md"
+  ],
+  "hooks": ["hooks/"]
 }
