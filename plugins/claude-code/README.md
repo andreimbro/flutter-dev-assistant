@@ -90,7 +90,7 @@ Specialized assistants you can invoke directly in chat:
 
 This plugin is published from the main monorepo via `git subtree`. To contribute, open issues, or suggest improvements:
 
-👉 [github.com/andreimbro/flutter-dev-assistant](https://github.com/andreimbro/flutter-dev-assistant)
+👉 [github.com/andreimbro/flutter-dev-assistant-claude](https://github.com/andreimbro/flutter-dev-assistant-claude)
 
 The `plugins/claude-code/` directory in the monorepo is the source of truth.
 

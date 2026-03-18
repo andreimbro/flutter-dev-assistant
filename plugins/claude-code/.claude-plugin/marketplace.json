@@ -7,10 +7,10 @@
   "metadata": {
     "description": "Enterprise-grade AI development companion for Flutter with intelligent code analysis, widget optimization, state management guidance, security auditing, comprehensive verification, and multi-agent orchestration",
     "version": "1.0.0",
-    "icon": "https://raw.githubusercontent.com/andreimbro/flutter-dev-assistant/main/assets/icon.png",
+    "icon": "https://raw.githubusercontent.com/andreimbro/flutter-dev-assistant-claude/main/assets/icon.png",
     "screenshots": [
-      "https://raw.githubusercontent.com/andreimbro/flutter-dev-assistant/main/assets/screenshot-verify.png",
-      "https://raw.githubusercontent.com/andreimbro/flutter-dev-assistant/main/assets/screenshot-security.png"
+      "https://raw.githubusercontent.com/andreimbro/flutter-dev-assistant-claude/main/assets/screenshot-verify.png",
+      "https://raw.githubusercontent.com/andreimbro/flutter-dev-assistant-claude/main/assets/screenshot-security.png"
     ]
   },
   "plugins": [
@@ -23,8 +23,8 @@
         "name": "andreimbro",
         "email": "andreimbro@github.com"
       },
-      "homepage": "https://github.com/andreimbro/flutter-dev-assistant",
-      "repository": "https://github.com/andreimbro/flutter-dev-assistant",
+      "homepage": "https://github.com/andreimbro/flutter-dev-assistant-claude",
+      "repository": "https://github.com/andreimbro/flutter-dev-assistant-claude",
       "license": "Apache-2.0",
       "keywords": [
         "flutter",
