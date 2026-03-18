@@ -1,0 +1,225 @@
+{
+  "name": "flutter-verify",
+  "description": "Runs comprehensive verification checks to ensure code quality before committing changes",
+  "purpose": {
+    "overview": "Executes a complete verification loop that checks your Flutter project for code quality, test coverage, build integrity, security vulnerabilities, and accessibility compliance. Provides a single entry point to validate that your code meets quality standards before committing or deploying.",
+    "useCases": [
+      "Preparing to commit code changes",
+      "Before creating a pull request",
+      "After completing a feature implementation",
+      "As part of a pre-deployment checklist",
+      "To get a comprehensive quality assessment"
+    ]
+  },
+  "usage": {
+    "syntax": "/flutter-verify [--skip-tests] [--skip-security] [--skip-accessibility] [--verbose]",
+    "parameters": {
+      "optional": {
+        "skipTests": {
+          "type": "boolean",
+          "description": "Skip test execution and coverage checks (useful for quick analysis-only runs)"
+        },
+        "skipSecurity": {
+          "type": "boolean",
+          "description": "Skip security vulnerability scanning"
+        },
+        "skipAccessibility": {
+          "type": "boolean",
+          "description": "Skip accessibility compliance checks"
+        },
+        "verbose": {
+          "type": "boolean",
+          "description": "Show detailed output for each verification step"
+        },
+        "projectPath": {
+          "type": "string",
+          "description": "Absolute path to the Flutter project to analyze. If not provided, uses the current workspace directory."
+        }
+      }
+    }
+  },
+  "workflow": {
+    "steps": [
+      {
+        "order": 0,
+        "name": "Environment Detection",
+        "description": "Detects Flutter/FVM setup (checks for .fvm directory or .fvmrc, determines if commands should use 'fvm flutter' or 'flutter')"
+      },
+      {
+        "order": 1,
+        "name": "Static Analysis",
+        "description": "Runs flutter analyze to check for code issues, warnings, and style violations"
+      },
+      {
+        "order": 2,
+        "name": "Test Execution",
+        "description": "Runs flutter test --coverage to execute all tests and generate coverage data"
+      },
+      {
+        "order": 3,
+        "name": "Coverage Check",
+        "description": "Parses coverage data and compares against thresholds (80% overall, 90% critical paths, 95% business logic)"
+      },
+      {
+        "order": 4,
+        "name": "Build Verification",
+        "description": "Executes flutter build in debug mode to verify the project compiles successfully"
+      },
+      {
+        "order": 5,
+        "name": "Security Scan",
+        "description": "Scans codebase for hardcoded secrets, insecure storage, missing input validation, and OWASP Mobile Top 10 vulnerabilities"
+      },
+      {
+        "order": 6,
+        "name": "Accessibility Check",
+        "description": "Verifies semantic labels, touch target sizes (minimum 48dp), and color contrast ratios (WCAG AA 4.5:1)"
+      },
+      {
+        "order": 7,
+        "name": "Report Generation",
+        "description": "Compiles all check results into a comprehensive report with pass/fail status and action items"
+      }
+    ]
+  },
+  "coverageThresholds": {
+    "overall": 80,
+    "criticalPaths": 90,
+    "businessLogic": 95
+  },
+  "reportFormat": {
+    "sections": [
+      "Environment (Flutter version, Dart version, FVM status, command used)",
+      "Static Analysis (errors, warnings, hints, duration)",
+      "Tests (passed, failed, duration)",
+      "Coverage (overall, critical paths, business logic percentages)",
+      "Build (status, duration)",
+      "Security (findings by severity, duration)",
+      "Accessibility (issues found, duration)",
+      "Overall Score (percentage of checks passed)",
+      "Action Items (prioritized by severity: CRITICAL, HIGH, MEDIUM)"
+    ]
+  },
+  "errorHandling": [
+    {
+      "error": "Static analysis failed with errors",
+      "cause": "Code contains syntax errors, type errors, or severe linting violations",
+      "solution": [
+        "Review error messages from flutter analyze",
+        "Import missing dependencies",
+        "Fix type mismatches",
+        "Remove unused imports",
+        "Address null safety issues"
+      ]
+    },
+    {
+      "error": "Tests failed",
+      "cause": "One or more tests are failing",
+      "solution": [
+        "Review test failure messages",
+        "Check for logic errors in implementation",
+        "Verify test expectations are correct",
+        "Check for missing test setup or teardown",
+        "Debug async timing issues",
+        "Run failing tests individually: flutter test path/to/test_file.dart"
+      ]
+    },
+    {
+      "error": "Coverage below threshold",
+      "cause": "Test coverage is below required thresholds",
+      "solution": [
+        "Add tests for uncovered code paths",
+        "Focus on business logic first (highest threshold)",
+        "Then critical paths (user flows, error handling)",
+        "Finally overall coverage",
+        "Use coverage visualization: genhtml coverage/lcov.info -o coverage/html"
+      ]
+    },
+    {
+      "error": "Build failed",
+      "cause": "Project fails to compile",
+      "solution": [
+        "Review build error messages",
+        "Run flutter pub get to resolve dependencies",
+        "Resolve version conflicts in pubspec.yaml",
+        "Run flutter pub run build_runner build if code generation needed",
+        "Check platform-specific configuration files",
+        "Verify all assets are declared in pubspec.yaml",
+        "Consider using Flutter Build Resolver assistant"
+      ]
+    },
+    {
+      "error": "Security vulnerabilities found",
+      "cause": "Security scan detected issues",
+      "solution": [
+        "CRITICAL: Hardcoded secrets → Move to environment variables or secure storage",
+        "HIGH: Missing input validation → Add validator functions to forms",
+        "MEDIUM: Insecure storage → Use flutter_secure_storage for sensitive data",
+        "LOW: Missing certificate pinning → Implement for production API calls",
+        "Run /flutter-security for detailed audit"
+      ]
+    },
+    {
+      "error": "Accessibility issues found",
+      "cause": "Accessibility scan detected problems",
+      "solution": [
+        "Missing semantics → Wrap widgets with Semantics(label: 'description')",
+        "Small touch targets → Ensure interactive elements are at least 48x48dp",
+        "Poor contrast → Adjust colors to meet WCAG AA standard (4.5:1 ratio)",
+        "Test with screen readers (TalkBack on Android, VoiceOver on iOS)"
+      ]
+    }
+  ],
+  "relatedCommands": [
+    {
+      "command": "/flutter-plan",
+      "description": "Create an implementation plan before starting development"
+    },
+    {
+      "command": "/flutter-checkpoint",
+      "description": "Save a checkpoint after verification passes"
+    },
+    {
+      "command": "/flutter-security",
+      "description": "Run a detailed security audit with OWASP Mobile Top 10 checks"
+    },
+    {
+      "command": "/flutter-orchestrate",
+      "description": "Coordinate multiple assistants for complex quality improvements"
+    }
+  ],
+  "relatedAssistants": [
+    {
+      "assistant": "Flutter Build Resolver",
+      "description": "Helps fix build errors with minimal code changes"
+    },
+    {
+      "assistant": "Flutter TDD Guide",
+      "description": "Guides test-driven development to improve coverage"
+    },
+    {
+      "assistant": "Flutter Architect",
+      "description": "Provides architectural guidance to improve code quality"
+    }
+  ],
+  "requirements": [
+    "Requirement 1.1: Execute static analysis using flutter analyze",
+    "Requirement 1.2: Execute all tests using flutter test with coverage enabled",
+    "Requirement 1.3: Calculate coverage percentage and compare against thresholds",
+    "Requirement 1.4: Execute a debug build using flutter build",
+    "Requirement 1.5: Scan codebase for hardcoded secrets and security vulnerabilities",
+    "Requirement 1.6: Check for accessibility compliance including semantic labels and touch target sizes",
+    "Requirement 1.7: Generate a verification report showing pass/fail status for each check with actionable recommendations",
+    "Requirement 1.8: Provide specific error details and remediation steps for failed checks"
+  ],
+  "notes": [
+    "Verification loop executes checks sequentially. If a critical check fails (e.g., static analysis or build), subsequent checks may be skipped to save time",
+    "Coverage thresholds are configurable but default to: 80% overall, 90% critical paths, 95% business logic",
+    "Security scanning uses regex patterns to detect common secret formats. False positives may occur for test data or comments",
+    "Accessibility checks are static analysis only. Manual testing with assistive technologies is still recommended",
+    "For CI/CD integration, this command can be run as a pre-commit hook or in a build pipeline",
+    "Use --verbose flag when debugging verification failures to see detailed output from each check",
+    "Overall score is calculated as (passed checks / total checks) × 100%"
+  ],
+  "version": "1.0.0"
+}

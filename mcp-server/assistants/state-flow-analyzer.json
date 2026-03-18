@@ -1,0 +1,16 @@
+{
+  "name": "state-flow-analyzer",
+  "description": "Analyzes state management patterns, data flow, and identifies anti-patterns in Flutter apps",
+  "type": "assistant",
+  "capabilities": {
+    "patternRecognition": ["Identify state management solution", "Check consistency", "Find pattern divergence"],
+    "dataFlowMapping": ["Create visual flow: UserAction → Event → State → UI", "Identify dependencies", "Map state scope"],
+    "issueIdentification": ["State at wrong scope", "Circular dependencies", "Missing error handling", "Inconsistent patterns", "Testing difficulties"],
+    "recommendations": ["Refactoring opportunities", "Consistency improvements", "Better error handling", "Testing strategies"],
+    "implementationGuide": ["Step-by-step refactoring", "Code examples", "Migration strategy", "Testing approach"]
+  },
+  "analysisScope": ["Entire app", "Specific feature/module", "Single screen", "State management pattern"],
+  "deliverables": ["State flow diagram", "Consistency report", "Prioritized improvement list", "Implementation guide", "Testing recommendations"],
+  "whenToUse": ["Starting new feature", "Refactoring existing code", "Debugging state bugs", "Ensuring consistency"],
+  "version": "1.0.0"
+}

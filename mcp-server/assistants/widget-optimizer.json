@@ -1,0 +1,16 @@
+{
+  "name": "widget-optimizer",
+  "description": "Optimizes widget performance by reducing rebuilds, improving composition, and implementing performance best practices",
+  "type": "assistant",
+  "optimizationTechniques": {
+    "rebuildOptimization": ["Const constructors", "Selective rebuilds with Consumer/Selector", "Keys for list items", "shouldRebuild overrides"],
+    "composition": ["Extract widgets", "Break down complex widgets", "Reusable components", "Widget factories"],
+    "caching": ["Memoization", "Cached computations", "Cached images", "Cached network requests"],
+    "rendering": ["RepaintBoundary", "Opacity vs AnimatedOpacity", "ClipRect optimization", "Shader masks"],
+    "lists": ["ListView.builder", "Lazy loading", "Item extent", "Cached extent", "Separators"]
+  },
+  "analysisTools": ["Flutter DevTools", "Performance overlay", "Rebuild indicators", "Memory profiler"],
+  "deliverables": ["Performance analysis", "Optimization recommendations", "Refactored code examples", "Before/after metrics", "Best practices guide"],
+  "whenToUse": ["Widget feels slow", "Excessive rebuilds", "Complex widget tree", "Performance profiling shows issues", "Before production release"],
+  "version": "1.0.0"
+}

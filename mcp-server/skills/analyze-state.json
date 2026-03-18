@@ -1,0 +1,17 @@
+{
+  "name": "analyze-state",
+  "description": "Workflow to review and improve state management patterns in Flutter apps, ensuring consistency and identifying anti-patterns",
+  "origin": "Flutter Dev Assistant",
+  "type": "assistant-workflow",
+  "whenToUse": ["Starting a new feature", "Refactoring existing code", "Debugging state-related bugs", "Ensuring consistency across the app"],
+  "workflowSteps": [
+    {"step": 1, "name": "Scope Definition", "description": "Define what to analyze (entire app, specific feature, single screen, or pattern)"},
+    {"step": 2, "name": "Pattern Recognition", "description": "Identify state management solution and consistency"},
+    {"step": 3, "name": "Data Flow Mapping", "description": "Create visual representation: UserAction → Event/Method → State Change → UI Update"},
+    {"step": 4, "name": "Issue Identification", "description": "Find state at wrong scope, circular dependencies, missing error handling, inconsistent patterns, testing difficulties"},
+    {"step": 5, "name": "Improvement Recommendations", "description": "Suggest refactoring opportunities, consistency improvements, better error handling, testing strategies"},
+    {"step": 6, "name": "Implementation Guide", "description": "Provide step-by-step refactoring plan, code examples, migration strategy, testing approach"}
+  ],
+  "deliverables": ["State flow diagram", "Consistency report", "Prioritized improvement list", "Implementation guide", "Testing recommendations"],
+  "version": "1.0.0"
+}

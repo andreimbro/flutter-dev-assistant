@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "INPUT=$(cat); FILE=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('file_path',''))\" 2>/dev/null); [ -n \"$FILE\" ] && dart format \"$FILE\" 2>/dev/null || true"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "INPUT=$(cat); FILE=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('file_path',''))\" 2>/dev/null); if [ -n \"$FILE\" ] && grep -q '@freezed\\|@riverpod\\|@JsonSerializable' \"$FILE\" 2>/dev/null; then echo '[Hook] Code generation needed. Run: flutter pub run build_runner build'; fi"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "INPUT=$(cat); CMD=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('command',''))\" 2>/dev/null); if echo \"$CMD\" | grep -q 'flutter run\\|flutter test --watch'; then echo '[Hook] WARNING: Long-running command detected. Consider running in separate terminal.'; fi"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "INPUT=$(cat); CMD=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('command',''))\" 2>/dev/null); if echo \"$CMD\" | grep -q 'git push' && [ -f pubspec.yaml ]; then command -v flutter >/dev/null 2>&1 || exit 0; echo '[Hook] Running tests before push...'; flutter test --no-pub || (echo '[Hook] Tests failed! Push cancelled.'; exit 1); fi"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f analysis_options.yaml ]; then flutter analyze --no-fatal-infos 2>/dev/null | grep -E 'error|warning' | head -10 || echo '[Flutter Dev Assistant] No analysis issues found'; fi"
+          }
+        ]
+      }
+    ]
+  }
+}

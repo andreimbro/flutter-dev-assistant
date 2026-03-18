@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "flutter-dev-assistant": {
+      "command": "node",
+      "args": ["/Users/andreai/Documents/Project/flutter-dev-assistant/mcp-server/index.js"],
+      "env": {
+        "KIRO_WORKSPACE_DIR": "${workspaceFolder}"
+      }
+    }
+  }
+}

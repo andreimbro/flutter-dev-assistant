@@ -1,0 +1,12 @@
+{
+  "name": "Flutter Analyze on Stop",
+  "version": "1.0.0",
+  "description": "Runs flutter analyze when agent stops to check for issues",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "if [ -f analysis_options.yaml ]; then flutter analyze --no-fatal-infos 2>/dev/null | grep -E 'error|warning' | head -10 || echo '[Flutter Dev Assistant] No analysis issues found'; fi"
+  }
+}

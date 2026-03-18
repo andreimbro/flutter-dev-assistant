@@ -1,0 +1,160 @@
+{
+  "skill": "performance-optimization",
+  "version": "1.0.0",
+  "description": "Comprehensive Flutter performance optimization techniques including widget optimization, memory management, rendering performance, and profiling tools",
+  "origin": "Flutter Dev Assistant",
+  "categories": [
+    "Widget Optimization",
+    "Memory Management",
+    "Rendering Performance",
+    "Build Optimization",
+    "Network Optimization",
+    "Image Optimization",
+    "List Performance",
+    "Profiling Tools"
+  ],
+  "widgetOptimization": {
+    "techniques": [
+      "Use const constructors for immutable widgets",
+      "Minimize widget rebuilds with keys",
+      "Split large widgets into smaller components",
+      "Use RepaintBoundary for complex widgets",
+      "Implement shouldRebuild in custom widgets",
+      "Cache expensive computations",
+      "Use ValueListenableBuilder for targeted rebuilds"
+    ],
+    "antiPatterns": [
+      "Creating widgets in build methods",
+      "Anonymous functions in widget constructors",
+      "Unnecessary setState calls",
+      "Deep widget trees without optimization"
+    ]
+  },
+  "memoryManagement": {
+    "practices": [
+      "Dispose controllers and streams",
+      "Use weak references for caches",
+      "Implement proper lifecycle management",
+      "Monitor memory usage with DevTools",
+      "Avoid memory leaks in listeners",
+      "Clear image caches when needed",
+      "Use compute() for heavy operations"
+    ],
+    "tools": [
+      "Memory profiler in DevTools",
+      "Heap snapshot analysis",
+      "Memory timeline",
+      "Allocation tracker"
+    ]
+  },
+  "renderingPerformance": {
+    "techniques": [
+      "Use RepaintBoundary strategically",
+      "Minimize opacity and clipping",
+      "Optimize animations with AnimatedBuilder",
+      "Use Transform instead of Container for simple transforms",
+      "Implement custom painters efficiently",
+      "Reduce overdraw with ClipRect",
+      "Use Shader masks sparingly"
+    ],
+    "targets": {
+      "fps": "60 FPS (16.67ms per frame)",
+      "jank": "< 5% frames over 16ms",
+      "buildTime": "< 8ms for build phase",
+      "layoutTime": "< 4ms for layout phase"
+    }
+  },
+  "listPerformance": {
+    "techniques": [
+      "Use ListView.builder for long lists",
+      "Implement lazy loading with pagination",
+      "Cache list item heights",
+      "Use AutomaticKeepAliveClientMixin for expensive items",
+      "Implement virtual scrolling",
+      "Optimize list item widgets",
+      "Use SliverList for complex scrolling"
+    ],
+    "itemOptimization": [
+      "Const constructors for list items",
+      "Keys for reorderable lists",
+      "Minimal widget depth",
+      "Cached network images"
+    ]
+  },
+  "imageOptimization": {
+    "techniques": [
+      "Use cached_network_image package",
+      "Implement image caching strategy",
+      "Resize images to display size",
+      "Use appropriate image formats (WebP)",
+      "Lazy load images",
+      "Implement progressive loading",
+      "Clear cache when memory pressure"
+    ],
+    "packages": [
+      "cached_network_image",
+      "flutter_cache_manager",
+      "image"
+    ]
+  },
+  "networkOptimization": {
+    "techniques": [
+      "Implement request caching",
+      "Use connection pooling",
+      "Batch API requests",
+      "Implement retry logic",
+      "Use compression (gzip)",
+      "Optimize payload size",
+      "Implement offline-first architecture"
+    ]
+  },
+  "buildOptimization": {
+    "techniques": [
+      "Use const constructors everywhere possible",
+      "Minimize widget tree depth",
+      "Extract widgets to reduce rebuilds",
+      "Use Builder widgets for context isolation",
+      "Implement custom RenderObjects for complex UI",
+      "Profile build times with Timeline",
+      "Use keys appropriately"
+    ]
+  },
+  "profilingTools": {
+    "devTools": [
+      "Performance overlay",
+      "Timeline view",
+      "Memory profiler",
+      "CPU profiler",
+      "Network profiler"
+    ],
+    "commands": [
+      "flutter run --profile",
+      "flutter run --trace-skia",
+      "flutter run --verbose-system-logs"
+    ],
+    "metrics": [
+      "Frame rendering time",
+      "Build time",
+      "Layout time",
+      "Paint time",
+      "Memory usage",
+      "CPU usage"
+    ]
+  },
+  "benchmarking": {
+    "targets": {
+      "appStartup": "< 2 seconds",
+      "screenTransition": "< 300ms",
+      "listScroll": "60 FPS",
+      "imageLoad": "< 500ms",
+      "apiResponse": "< 1 second"
+    }
+  },
+  "documentation": {
+    "overview": "skills/performance-optimization.md",
+    "widgetOptimization": "skills/performance-optimization/widget-optimization.md",
+    "memoryManagement": "skills/performance-optimization/memory-management.md",
+    "renderingPerformance": "skills/performance-optimization/rendering-performance.md",
+    "profiling": "skills/performance-optimization/profiling.md"
+  }
+}

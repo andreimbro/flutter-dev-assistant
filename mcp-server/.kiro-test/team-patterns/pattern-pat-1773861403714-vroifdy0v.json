@@ -1,0 +1,38 @@
+{
+  "id": "pat-1773861403714-vroifdy0v",
+  "trigger": {
+    "keywords": [
+      "2ziw"
+    ],
+    "taskType": "general",
+    "complexity": "low"
+  },
+  "solution": {
+    "phases": [
+      {
+        "assistant": "Flutter Architect",
+        "task": "Design"
+      }
+    ],
+    "dependencies": [
+      {
+        "id": "p1",
+        "dependsOn": []
+      }
+    ],
+    "outcomes": "success"
+  },
+  "context": {
+    "phaseCount": 1,
+    "assistants": [
+      "Flutter Architect"
+    ],
+    "parallelizable": false
+  },
+  "confidence": 1,
+  "category": "general",
+  "usageCount": 10,
+  "successCount": 10,
+  "createdAt": "2026-03-18T19:16:43.714Z",
+  "updatedAt": "2026-03-18T19:16:43.724Z"
+}

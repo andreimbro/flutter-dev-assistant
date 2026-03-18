@@ -1,0 +1,39 @@
+{
+  "id": "pat-1773861413697-ef7rbfbge",
+  "trigger": {
+    "keywords": [
+      "j4tgv6c",
+      "bkek"
+    ],
+    "taskType": "general",
+    "complexity": "low"
+  },
+  "solution": {
+    "phases": [
+      {
+        "assistant": "Flutter Architect",
+        "task": "Design"
+      }
+    ],
+    "dependencies": [
+      {
+        "id": "p1",
+        "dependsOn": []
+      }
+    ],
+    "outcomes": "success"
+  },
+  "context": {
+    "phaseCount": 1,
+    "assistants": [
+      "Flutter Architect"
+    ],
+    "parallelizable": false
+  },
+  "confidence": 1,
+  "category": "general",
+  "usageCount": 9,
+  "successCount": 9,
+  "createdAt": "2026-03-18T19:16:53.698Z",
+  "updatedAt": "2026-03-18T19:16:53.700Z"
+}

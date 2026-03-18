@@ -1,0 +1,42 @@
+{
+  "name": "flutter-dev-assistant",
+  "version": "1.0.0",
+  "description": "Enterprise-grade AI development companion for Flutter with intelligent code analysis, widget optimization, state management guidance, security auditing, comprehensive verification, and multi-agent orchestration",
+  "author": {
+    "name": "andreimbro",
+    "url": "https://github.com/andreimbro"
+  },
+  "homepage": "https://github.com/andreimbro/flutter-dev-assistant",
+  "repository": "https://github.com/andreimbro/flutter-dev-assistant",
+  "license": "Apache-2.0",
+  "keywords": [
+    "flutter",
+    "dart",
+    "mobile-development",
+    "widget-optimization",
+    "performance",
+    "state-management",
+    "verification",
+    "orchestration",
+    "security",
+    "testing",
+    "ai-assistant",
+    "code-analysis"
+  ],
+  "agents": [
+    "assistants/flutter-architect.md",
+    "assistants/flutter-tdd-guide.md",
+    "assistants/flutter-build-resolver.md",
+    "assistants/widget-optimizer.md",
+    "assistants/performance-auditor.md",
+    "assistants/state-flow-analyzer.md",
+    "assistants/ui-consistency-checker.md",
+    "assistants/dependency-manager.md",
+    "assistants/best-practices-enforcer.md",
+    "assistants/migration-assistant.md",
+    "assistants/package-advisor.md"
+  ],
+  "skills": ["skills/"],
+  "commands": ["commands/"],
+  "hooks":["hooks/"]
+}

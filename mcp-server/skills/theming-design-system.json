@@ -1,0 +1,169 @@
+{
+  "skill": "theming-design-system",
+  "version": "1.0.0",
+  "description": "Comprehensive guide for building scalable design systems in Flutter with Material 3, custom themes, dark mode, and design tokens",
+  "origin": "Flutter Dev Assistant",
+  "categories": [
+    "Material 3 Theming",
+    "Custom Themes",
+    "Dark Mode",
+    "Design Tokens",
+    "Typography",
+    "Color Systems",
+    "Component Theming",
+    "Responsive Design"
+  ],
+  "material3": {
+    "features": [
+      "Dynamic color schemes",
+      "Material You support",
+      "Improved component designs",
+      "Better accessibility",
+      "Enhanced animations"
+    ],
+    "migration": {
+      "from": "Material 2",
+      "to": "Material 3",
+      "steps": [
+        "Update useMaterial3: true in ThemeData",
+        "Update color schemes to ColorScheme",
+        "Migrate deprecated widgets",
+        "Test component appearances",
+        "Update custom themes"
+      ]
+    }
+  },
+  "themeStructure": {
+    "components": [
+      "ColorScheme (primary, secondary, tertiary, error, surface)",
+      "TextTheme (display, headline, title, body, label)",
+      "AppBarTheme",
+      "ButtonTheme",
+      "CardTheme",
+      "InputDecorationTheme",
+      "IconTheme",
+      "DividerTheme"
+    ],
+    "implementation": "ThemeData with useMaterial3: true"
+  },
+  "darkMode": {
+    "implementation": [
+      "Separate light and dark ThemeData",
+      "Use ColorScheme.fromSeed for consistency",
+      "Test all components in both modes",
+      "Handle system theme changes",
+      "Provide manual theme toggle"
+    ],
+    "bestPractices": [
+      "Use semantic colors (primary, secondary, surface)",
+      "Avoid hardcoded colors",
+      "Test contrast ratios",
+      "Consider OLED displays",
+      "Smooth theme transitions"
+    ]
+  },
+  "designTokens": {
+    "types": [
+      "Colors (primary, secondary, tertiary, error, surface)",
+      "Typography (font families, sizes, weights)",
+      "Spacing (padding, margin, gaps)",
+      "Border radius (small, medium, large)",
+      "Elevation (shadows, z-index)",
+      "Animation durations"
+    ],
+    "organization": [
+      "Centralized token definitions",
+      "Semantic naming",
+      "Platform-specific overrides",
+      "Theme extensions for custom tokens"
+    ]
+  },
+  "typography": {
+    "scales": [
+      "Display (large, medium, small)",
+      "Headline (large, medium, small)",
+      "Title (large, medium, small)",
+      "Body (large, medium, small)",
+      "Label (large, medium, small)"
+    ],
+    "customization": [
+      "Font families",
+      "Font weights",
+      "Letter spacing",
+      "Line height",
+      "Text decoration"
+    ]
+  },
+  "colorSystem": {
+    "material3": [
+      "Primary (main brand color)",
+      "Secondary (accent color)",
+      "Tertiary (additional accent)",
+      "Error (error states)",
+      "Surface (backgrounds)",
+      "On-colors (text on colored backgrounds)"
+    ],
+    "generation": [
+      "ColorScheme.fromSeed()",
+      "Material color utilities",
+      "Custom color schemes",
+      "Accessibility-compliant colors"
+    ]
+  },
+  "componentTheming": {
+    "approach": "Theme extensions for custom components",
+    "components": [
+      "Buttons (ElevatedButton, TextButton, OutlinedButton)",
+      "Cards",
+      "AppBar",
+      "BottomNavigationBar",
+      "TextField",
+      "Dialogs",
+      "Snackbars",
+      "Chips"
+    ]
+  },
+  "responsiveDesign": {
+    "breakpoints": {
+      "mobile": "< 600dp",
+      "tablet": "600dp - 840dp",
+      "desktop": "> 840dp"
+    },
+    "techniques": [
+      "LayoutBuilder for responsive layouts",
+      "MediaQuery for screen dimensions",
+      "Adaptive widgets",
+      "Platform-specific designs",
+      "Orientation handling"
+    ]
+  },
+  "bestPractices": [
+    "Use Material 3 for modern designs",
+    "Implement dark mode support",
+    "Use semantic color names",
+    "Centralize design tokens",
+    "Test accessibility",
+    "Support dynamic theming",
+    "Document design system",
+    "Version design tokens"
+  ],
+  "packages": {
+    "theming": [
+      "flutter/material.dart",
+      "google_fonts",
+      "flex_color_scheme"
+    ],
+    "responsive": [
+      "responsive_framework",
+      "flutter_screenutil"
+    ]
+  },
+  "documentation": {
+    "overview": "skills/theming-design-system.md",
+    "material3": "skills/theming-design-system/material3.md",
+    "darkMode": "skills/theming-design-system/dark-mode.md",
+    "designTokens": "skills/theming-design-system/design-tokens.md",
+    "typography": "skills/theming-design-system/typography.md",
+    "colorSystem": "skills/theming-design-system/color-system.md"
+  }
+}

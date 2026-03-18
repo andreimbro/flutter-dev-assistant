@@ -1,0 +1,244 @@
+{
+  "name": "flutter-security",
+  "description": "Performs comprehensive security audit to identify vulnerabilities and ensure secure coding practices",
+  "purpose": {
+    "overview": "Executes a thorough security audit of your Flutter project, scanning for hardcoded secrets, insecure storage practices, missing input validation, network security issues, and compliance with OWASP Mobile Top 10 vulnerabilities. Helps identify security risks before they reach production.",
+    "useCases": [
+      "Preparing for production deployment",
+      "Conducting security reviews",
+      "After implementing authentication or payment features",
+      "When handling sensitive user data",
+      "As part of compliance requirements (GDPR, HIPAA, PCI-DSS)",
+      "Before security audits or penetration testing"
+    ]
+  },
+  "usage": {
+    "syntax": "/flutter-security [--severity=level] [--category=type] [--fix-suggestions] [--owasp-only]",
+    "parameters": {
+      "optional": {
+        "severity": {
+          "type": "enum",
+          "values": [
+            "critical",
+            "high",
+            "medium",
+            "low",
+            "all"
+          ],
+          "default": "all",
+          "description": "Filter findings by severity level"
+        },
+        "category": {
+          "type": "enum",
+          "values": [
+            "secrets",
+            "storage",
+            "validation",
+            "network",
+            "permissions",
+            "all"
+          ],
+          "default": "all",
+          "description": "Focus on specific security category"
+        },
+        "fixSuggestions": {
+          "type": "boolean",
+          "description": "Include detailed remediation code examples for each finding"
+        },
+        "owaspOnly": {
+          "type": "boolean",
+          "description": "Only check for OWASP Mobile Top 10 vulnerabilities"
+        },
+        "projectPath": {
+          "type": "string",
+          "description": "Absolute path to the Flutter project to analyze. If not provided, uses the current workspace directory."
+        }
+      }
+    }
+  },
+  "workflow": {
+    "steps": [
+      {
+        "order": 0,
+        "name": "Environment Detection",
+        "description": "Detects Flutter/FVM setup"
+      },
+      {
+        "order": 1,
+        "name": "Secret Detection",
+        "description": "Scans all Dart files for hardcoded API keys, tokens, passwords, private keys, and credentials using regex pattern matching"
+      },
+      {
+        "order": 2,
+        "name": "Secure Storage Check",
+        "description": "Verifies sensitive data uses flutter_secure_storage instead of SharedPreferences or plain text storage"
+      },
+      {
+        "order": 3,
+        "name": "Input Validation Check",
+        "description": "Identifies TextFormField widgets and verifies validator functions exist to prevent injection attacks"
+      },
+      {
+        "order": 4,
+        "name": "Network Security Check",
+        "description": "Identifies HTTP clients and verifies certificate pinning for production endpoints, checks for insecure HTTP usage"
+      },
+      {
+        "order": 5,
+        "name": "Permission Check",
+        "description": "Parses AndroidManifest.xml and Info.plist to verify appropriate permission handling and justification"
+      },
+      {
+        "order": 6,
+        "name": "OWASP Mobile Top 10 Check",
+        "description": "Validates against OWASP Mobile Top 10 vulnerabilities (M1-M10)"
+      },
+      {
+        "order": 7,
+        "name": "Report Generation",
+        "description": "Compiles findings with severity levels, file locations, line numbers, remediation guidance, and OWASP references"
+      }
+    ]
+  },
+  "secretDetectionPatterns": {
+    "apiKeys": [
+      "Generic API key: (api[_-]?key|apikey)['\"]?\\s*[:=]\\s*['\"]([a-zA-Z0-9_\\-]{20,})['\"]",
+      "AWS Access Key: AKIA[0-9A-Z]{16}",
+      "Google API Key: AIza[0-9A-Za-z\\-_]{35}",
+      "Stripe Key: sk_(test|live)_[0-9a-zA-Z]{24,}"
+    ],
+    "tokens": [
+      "JWT Token: eyJ[a-zA-Z0-9_-]*\\.eyJ[a-zA-Z0-9_-]*\\.[a-zA-Z0-9_-]*",
+      "GitHub Token: ghp_[a-zA-Z0-9]{36}",
+      "Bearer Token: bearer\\s+[a-zA-Z0-9\\-._~+/]+=*"
+    ],
+    "passwords": [
+      "Password variable: (password|passwd|pwd)['\"]?\\s*[:=]\\s*['\"]([^'\"]{8,})['\"]",
+      "Connection string: (mongodb|mysql|postgres)://[^:]+:([^@]+)@"
+    ],
+    "privateKeys": [
+      "RSA Private Key: -----BEGIN RSA PRIVATE KEY-----",
+      "SSH Private Key: -----BEGIN OPENSSH PRIVATE KEY-----",
+      "PGP Private Key: -----BEGIN PGP PRIVATE KEY BLOCK-----"
+    ],
+    "falsePositiveHandling": [
+      "Test files (ending in _test.dart) are flagged but marked as lower priority",
+      "Comments containing secrets are flagged but marked as potential false positives",
+      "Example code in documentation is flagged but marked as informational",
+      "Environment variable placeholders (e.g., YOUR_API_KEY_HERE) are excluded"
+    ]
+  },
+  "owaspMobileTop10": {
+    "M1": {
+      "name": "Improper Platform Usage",
+      "checked": true,
+      "description": "Misuse of platform features or failure to use platform security controls"
+    },
+    "M2": {
+      "name": "Insecure Data Storage",
+      "checked": true,
+      "description": "Insecure storage of sensitive data on device"
+    },
+    "M3": {
+      "name": "Insecure Communication",
+      "checked": true,
+      "description": "Poor handshaking, incorrect SSL versions, weak negotiation, cleartext transmission"
+    },
+    "M4": {
+      "name": "Insecure Authentication",
+      "checked": true,
+      "description": "Weak authentication, session management issues"
+    },
+    "M5": {
+      "name": "Insufficient Cryptography",
+      "checked": true,
+      "description": "Weak encryption algorithms, poor key management"
+    },
+    "M6": {
+      "name": "Insecure Authorization",
+      "checked": false,
+      "description": "Requires runtime analysis"
+    },
+    "M7": {
+      "name": "Client Code Quality",
+      "checked": true,
+      "description": "Code-level implementation issues"
+    },
+    "M8": {
+      "name": "Code Tampering",
+      "checked": false,
+      "description": "Requires runtime protection analysis"
+    },
+    "M9": {
+      "name": "Reverse Engineering",
+      "checked": false,
+      "description": "Requires obfuscation analysis"
+    },
+    "M10": {
+      "name": "Extraneous Functionality",
+      "checked": false,
+      "description": "Requires manual review"
+    }
+  },
+  "securityScoreCalculation": {
+    "formula": "100 - (critical * 15) - (high * 10) - (medium * 5) - (low * 2)",
+    "categories": {
+      "secretManagement": "Weight: 20%",
+      "dataStorage": "Weight: 20%",
+      "inputValidation": "Weight: 15%",
+      "networkSecurity": "Weight: 20%",
+      "permissions": "Weight: 15%",
+      "codeQuality": "Weight: 10%"
+    },
+    "targets": {
+      "production": "90+ with zero critical findings",
+      "development": "70+ acceptable for active development"
+    }
+  },
+  "relatedCommands": [
+    {
+      "command": "/flutter-verify",
+      "description": "Run comprehensive verification including security checks"
+    },
+    {
+      "command": "/flutter-orchestrate",
+      "description": "Coordinate multiple assistants for security improvements"
+    },
+    {
+      "command": "/flutter-checkpoint",
+      "description": "Save checkpoint after security fixes"
+    }
+  ],
+  "relatedAssistants": [
+    {
+      "assistant": "Flutter Architect",
+      "description": "Provides guidance on secure architecture patterns"
+    },
+    {
+      "assistant": "Flutter TDD Guide",
+      "description": "Helps write security-focused tests"
+    }
+  ],
+  "requirements": [
+    "Requirement 9.1: Scan all source files for hardcoded API keys and secrets",
+    "Requirement 9.2: Check for secure storage usage via flutter_secure_storage",
+    "Requirement 9.3: Verify input validation is present for user inputs",
+    "Requirement 9.4: Verify certificate pinning for sensitive API calls",
+    "Requirement 9.5: Verify appropriate permission handling for platform features",
+    "Requirement 9.6: Check against OWASP Mobile Top 10 vulnerabilities",
+    "Requirement 9.7: Generate security report with severity levels and remediation steps"
+  ],
+  "notes": [
+    "Secret detection uses regex patterns which may produce false positives. Always review findings in context",
+    "Some OWASP Mobile Top 10 checks (M6, M8, M9, M10) require runtime analysis or manual review and are not fully automated",
+    "Security scanning is static analysis only. Dynamic testing and penetration testing are still recommended",
+    "Certificate pinning verification checks for package usage but cannot verify pin correctness without runtime testing",
+    "Permission checks verify presence but cannot determine if permissions are actually needed without usage analysis",
+    "For production deployments, aim for a security score of 90+ with zero critical findings",
+    "Regular security audits should be conducted, especially after major feature additions or before releases",
+    "Consider integrating this command into CI/CD pipeline as a quality gate",
+    "Sensitive data includes: passwords, tokens, API keys, credit card numbers, SSNs, health records, biometric data",
+    "Follow principle of least privilege for permissions - only request what's absolutely necessary"
+  ],
+  "version": "1.0.0"
+}

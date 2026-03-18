@@ -1,0 +1,115 @@
+{
+  "name": "state-management-comparison",
+  "description": "Detailed comparison of Flutter state management solutions (setState, Provider, Riverpod, Bloc, GetX) with decision matrix, migration paths, and performance analysis",
+  "origin": "Flutter Dev Assistant",
+  "quickDecisionMatrix": {
+    "simplicity": "Provider or setState",
+    "typeSafety": "Riverpod",
+    "predictability": "Bloc/Cubit",
+    "minimalBoilerplate": "GetX",
+    "reactiveProgramming": "RxDart + Streams",
+    "learningCurve": "Provider → Riverpod → Bloc"
+  },
+  "solutions": [
+    {
+      "name": "setState",
+      "bestFor": "Simple, local state",
+      "pros": ["No dependencies", "Easy to understand", "Fast to implement", "Perfect for isolated widgets"],
+      "cons": ["Doesn't scale well", "State tied to widget lifecycle", "Hard to test", "No separation of concerns"],
+      "whenToUse": ["Form input handling", "Animation controllers", "Simple toggles", "UI-only state"],
+      "complexity": "⭐⭐⭐⭐⭐"
+    },
+    {
+      "name": "Provider",
+      "bestFor": "Shared state across widget tree",
+      "pros": ["Official Flutter recommendation", "Good performance", "Easy to learn", "Flexible", "Good testing support"],
+      "cons": ["Boilerplate for complex state", "Manual disposal needed", "Context dependency"],
+      "whenToUse": ["Medium-sized apps", "Shared state between screens", "When you want official support", "Learning state management"],
+      "complexity": "⭐⭐⭐⭐"
+    },
+    {
+      "name": "Riverpod",
+      "bestFor": "Type-safe, testable state management",
+      "pros": ["Compile-time safety", "No context needed", "Excellent testing", "Auto-disposal", "Great DevTools", "No BuildContext dependency"],
+      "cons": ["Learning curve", "Different mental model", "More verbose initially"],
+      "whenToUse": ["Large applications", "When type safety is critical", "Complex dependency graphs", "When testing is priority", "Team projects"],
+      "complexity": "⭐⭐⭐",
+      "note": "Riverpod 3.0+ is available but includes breaking changes. Recommended to stay on 2.5.x for production until ecosystem stabilizes"
+    },
+    {
+      "name": "Bloc/Cubit",
+      "bestFor": "Predictable, testable state management",
+      "pros": ["Clear separation of concerns", "Excellent testability", "Predictable state changes", "Great documentation", "Strong community", "DevTools support"],
+      "cons": ["Boilerplate code", "Steeper learning curve", "Overkill for simple apps"],
+      "whenToUse": ["Enterprise applications", "Complex business logic", "When predictability is key", "Team with strong architecture focus", "Apps with complex state transitions"],
+      "complexity": "⭐⭐"
+    },
+    {
+      "name": "GetX",
+      "bestFor": "Rapid development with minimal boilerplate",
+      "pros": ["Minimal boilerplate", "Fast development", "Built-in routing", "Dependency injection", "Easy to learn"],
+      "cons": ["Magic/implicit behavior", "Less predictable", "Harder to debug", "Community divided on best practices"],
+      "whenToUse": ["Rapid prototyping", "Small to medium apps", "Solo developers", "When speed is priority"],
+      "complexity": "⭐⭐⭐⭐⭐"
+    }
+  ],
+  "migrationPaths": {
+    "setStateToProvider": [
+      "Extract state to ChangeNotifier",
+      "Wrap app with Provider",
+      "Replace setState with notifyListeners",
+      "Use Consumer/Provider.of to read state"
+    ],
+    "providerToRiverpod": [
+      "Replace ChangeNotifierProvider with StateNotifierProvider",
+      "Convert ChangeNotifier to StateNotifier",
+      "Replace Consumer with Consumer(ref)",
+      "Update context.read to ref.read"
+    ],
+    "providerToBloc": [
+      "Create Bloc/Cubit for each ChangeNotifier",
+      "Convert methods to events/methods",
+      "Replace Provider with BlocProvider",
+      "Update Consumer to BlocBuilder"
+    ]
+  },
+  "hybridApproaches": {
+    "description": "You can mix solutions",
+    "recommendation": "setState for local UI state, Provider/Riverpod/Bloc for app state, Streams for real-time data"
+  },
+  "performanceComparison": {
+    "setState": {
+      "rebuildEfficiency": "⭐⭐",
+      "memory": "⭐⭐⭐⭐⭐",
+      "learningCurve": "⭐⭐⭐⭐⭐"
+    },
+    "Provider": {
+      "rebuildEfficiency": "⭐⭐⭐⭐",
+      "memory": "⭐⭐⭐⭐",
+      "learningCurve": "⭐⭐⭐⭐"
+    },
+    "Riverpod": {
+      "rebuildEfficiency": "⭐⭐⭐⭐⭐",
+      "memory": "⭐⭐⭐⭐",
+      "learningCurve": "⭐⭐⭐"
+    },
+    "Bloc": {
+      "rebuildEfficiency": "⭐⭐⭐⭐",
+      "memory": "⭐⭐⭐",
+      "learningCurve": "⭐⭐"
+    },
+    "GetX": {
+      "rebuildEfficiency": "⭐⭐⭐⭐",
+      "memory": "⭐⭐⭐⭐",
+      "learningCurve": "⭐⭐⭐⭐⭐"
+    }
+  },
+  "recommendations": {
+    "forBeginners": "Start with Provider",
+    "forProductionApps": "Riverpod or Bloc",
+    "forRapidPrototyping": "GetX",
+    "forSimpleApps": "setState + Provider",
+    "note": "The best solution is the one your team understands and can maintain effectively"
+  },
+  "version": "1.0.0"
+}

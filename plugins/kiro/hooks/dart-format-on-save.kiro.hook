@@ -1,0 +1,13 @@
+{
+  "name": "Dart Format on Save",
+  "version": "1.0.0",
+  "description": "Automatically formats Dart files when saved",
+  "when": {
+    "type": "fileEdited",
+    "patterns": ["*.dart"]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "dart format \"$FILE_PATH\" 2>/dev/null || true"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "skill": "widget-patterns",
+  "version": "1.0.0",
+  "description": "Common Flutter widget patterns and composition techniques for building reusable UI components",
+  "origin": "Flutter Dev Assistant",
+  "categories": ["Composition", "Builder Patterns", "Custom Widgets", "Stateful vs Stateless", "Widget Lifecycle"],
+  "patterns": {
+    "composition": "Prefer composition over inheritance",
+    "builder": "Use builder pattern for flexible widgets",
+    "wrapper": "Create wrapper widgets for common patterns",
+    "factory": "Factory constructors for variants"
+  },
+  "customWidgets": ["Extend StatelessWidget", "Extend StatefulWidget", "Implement custom RenderObject", "Use InheritedWidget for data"],
+  "bestPractices": ["Use const constructors", "Extract widgets", "Minimize rebuilds", "Proper keys usage", "Dispose resources"],
+  "documentation": {
+    "overview": "skills/widget-patterns.md"
+  }
+}

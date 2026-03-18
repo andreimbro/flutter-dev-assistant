@@ -1,0 +1,180 @@
+{
+  "skill": "flutter-best-practices",
+  "version": "1.0.0",
+  "description": "Modern Flutter development patterns including Riverpod 2.5.x, Bloc 9.x, Freezed 2.4.x, Clean Architecture, security (OWASP), accessibility (WCAG 2.1 AA), and performance optimization",
+  "origin": "Flutter Dev Assistant",
+  "categories": [
+    "State Management",
+    "Architecture",
+    "Code Generation",
+    "Security",
+    "Accessibility",
+    "Performance",
+    "Testing",
+    "Error Handling"
+  ],
+  "stateManagement": {
+    "recommended": "Riverpod 2.5.x with code generation",
+    "alternatives": ["Bloc 9.x", "Provider", "GetX", "MobX"],
+    "patterns": [
+      "@riverpod annotation for providers",
+      "Freezed 2.4.x for data classes",
+      "json_serializable for JSON",
+      "AsyncValue for async state",
+      "Family providers for parameterized state"
+    ],
+    "migration": {
+      "riverpod3": "Breaking changes - see migration guide",
+      "freezed3": "Breaking changes - see migration guide"
+    }
+  },
+  "architecture": {
+    "recommended": "Clean Architecture with feature-first structure",
+    "layers": [
+      "Presentation (UI, Widgets, State)",
+      "Domain (Entities, Use Cases, Repositories)",
+      "Data (Data Sources, Models, Repositories Impl)"
+    ],
+    "patterns": [
+      "Repository pattern for data access",
+      "Use cases for business logic",
+      "Dependency injection with Riverpod",
+      "Feature-first folder structure"
+    ]
+  },
+  "codeGeneration": {
+    "tools": [
+      "riverpod_generator 2.x",
+      "freezed 2.4.x",
+      "json_serializable 6.x",
+      "build_runner 2.x"
+    ],
+    "commands": [
+      "dart run build_runner build --delete-conflicting-outputs",
+      "dart run build_runner watch"
+    ]
+  },
+  "security": {
+    "standard": "OWASP Mobile Top 10",
+    "practices": [
+      "Use flutter_secure_storage for sensitive data",
+      "Implement certificate pinning for production",
+      "Validate all user inputs",
+      "Never hardcode API keys or secrets",
+      "Use environment variables for configuration",
+      "Implement proper authentication flows",
+      "Sanitize data before display"
+    ],
+    "vulnerabilities": [
+      "M1: Improper Platform Usage",
+      "M2: Insecure Data Storage",
+      "M3: Insecure Communication",
+      "M4: Insecure Authentication",
+      "M5: Insufficient Cryptography"
+    ]
+  },
+  "accessibility": {
+    "standard": "WCAG 2.1 Level AA",
+    "requirements": [
+      "Semantic labels for all interactive widgets",
+      "Minimum touch target size: 48dp",
+      "Color contrast ratio: 4.5:1 for text",
+      "Support screen readers",
+      "Keyboard navigation support",
+      "Focus indicators",
+      "Alternative text for images"
+    ],
+    "widgets": [
+      "Semantics widget for custom accessibility",
+      "ExcludeSemantics for decorative elements",
+      "MergeSemantics for grouped elements"
+    ]
+  },
+  "performance": {
+    "practices": [
+      "Use const constructors for immutable widgets",
+      "Implement lazy loading for lists",
+      "Cache network images",
+      "Minimize widget rebuilds",
+      "Use RepaintBoundary for complex widgets",
+      "Profile with DevTools",
+      "Optimize build methods",
+      "Use ListView.builder for long lists"
+    ],
+    "tools": [
+      "Flutter DevTools",
+      "Performance overlay",
+      "Timeline view",
+      "Memory profiler"
+    ]
+  },
+  "testing": {
+    "types": [
+      "Unit tests for business logic",
+      "Widget tests for UI components",
+      "Integration tests for user flows",
+      "Golden tests for visual regression"
+    ],
+    "coverage": {
+      "overall": "80% minimum",
+      "criticalPaths": "90% minimum",
+      "businessLogic": "95% minimum"
+    },
+    "tools": [
+      "flutter_test",
+      "mockito",
+      "mocktail",
+      "integration_test"
+    ]
+  },
+  "errorHandling": {
+    "patterns": [
+      "Use Result/Either types for operations",
+      "AsyncValue for async operations",
+      "Global error boundary",
+      "Proper exception hierarchy",
+      "User-friendly error messages",
+      "Error logging and monitoring"
+    ]
+  },
+  "dependencies": {
+    "stateManagement": {
+      "riverpod": "^2.5.1",
+      "riverpod_annotation": "^2.3.5",
+      "riverpod_generator": "^2.4.0",
+      "flutter_riverpod": "^2.5.1"
+    },
+    "codeGeneration": {
+      "freezed": "^2.4.7",
+      "freezed_annotation": "^2.4.1",
+      "json_serializable": "^6.7.1",
+      "build_runner": "^2.4.8"
+    },
+    "security": {
+      "flutter_secure_storage": "^9.0.0"
+    },
+    "testing": {
+      "mockito": "^5.4.4",
+      "mocktail": "^1.0.3"
+    }
+  },
+  "antiPatterns": [
+    "Using setState in large widgets",
+    "Not disposing controllers",
+    "Hardcoding values",
+    "Ignoring accessibility",
+    "Skipping tests",
+    "Not handling errors",
+    "Blocking UI thread",
+    "Memory leaks"
+  ],
+  "documentation": {
+    "overview": "skills/flutter-best-practices.md",
+    "stateManagement": "skills/flutter-best-practices/state-management.md",
+    "architecture": "skills/flutter-best-practices/architecture.md",
+    "security": "skills/flutter-best-practices/security.md",
+    "accessibility": "skills/flutter-best-practices/accessibility.md",
+    "performance": "skills/flutter-best-practices/performance.md",
+    "testing": "skills/flutter-best-practices/testing.md"
+  }
+}

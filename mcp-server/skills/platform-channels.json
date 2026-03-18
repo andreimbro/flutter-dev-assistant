@@ -1,0 +1,17 @@
+{
+  "skill": "platform-channels",
+  "version": "1.0.0",
+  "description": "Platform-specific code integration using MethodChannel, EventChannel, and platform views for iOS and Android",
+  "origin": "Flutter Dev Assistant",
+  "categories": ["MethodChannel", "EventChannel", "Platform Views", "Native Integration", "iOS Integration", "Android Integration"],
+  "channels": {
+    "methodChannel": "Invoke platform methods and get results",
+    "eventChannel": "Stream events from platform to Flutter",
+    "basicMessageChannel": "Send simple messages bidirectionally"
+  },
+  "useCases": ["Access native APIs", "Use platform-specific features", "Integrate native SDKs", "Custom camera/sensors", "Native UI components"],
+  "bestPractices": ["Handle platform exceptions", "Use async/await", "Implement proper error handling", "Test on both platforms", "Document platform requirements"],
+  "documentation": {
+    "overview": "skills/platform-channels.md"
+  }
+}

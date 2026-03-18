@@ -1,0 +1,18 @@
+{
+  "name": "enforce-best-practices",
+  "description": "Workflow to review code for Flutter best practices including null safety, error handling, code organization, and performance patterns",
+  "origin": "Flutter Dev Assistant",
+  "type": "assistant-workflow",
+  "whenToUse": ["Code review", "Before merging PR", "Onboarding new developers", "Establishing coding standards", "Refactoring legacy code"],
+  "workflowSteps": [
+    {"step": 1, "name": "Code Structure Review", "description": "Check file organization, naming conventions, and folder structure"},
+    {"step": 2, "name": "Null Safety Check", "description": "Verify proper null safety usage and null checks"},
+    {"step": 3, "name": "Error Handling", "description": "Ensure proper try-catch, error states, and user feedback"},
+    {"step": 4, "name": "Performance Patterns", "description": "Check for const constructors, unnecessary rebuilds, and optimization opportunities"},
+    {"step": 5, "name": "Testing Coverage", "description": "Verify adequate test coverage for business logic and UI"},
+    {"step": 6, "name": "Documentation", "description": "Check for code comments, documentation, and README updates"}
+  ],
+  "bestPracticesChecked": ["Null safety", "Error handling", "Const constructors", "Widget composition", "State management patterns", "Testing coverage", "Code documentation", "Accessibility", "Security practices"],
+  "deliverables": ["Best practices report", "Violation list with severity", "Code examples for fixes", "Refactoring recommendations", "Team guidelines"],
+  "version": "1.0.0"
+}

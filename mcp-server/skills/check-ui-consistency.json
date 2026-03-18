@@ -1,0 +1,18 @@
+{
+  "name": "check-ui-consistency",
+  "description": "Workflow to ensure UI consistency across the app by checking design system compliance, spacing, colors, typography, and component usage",
+  "origin": "Flutter Dev Assistant",
+  "type": "assistant-workflow",
+  "whenToUse": ["Before design review", "After adding new screens", "Ensuring brand consistency", "Preparing for production", "Onboarding new developers"],
+  "workflowSteps": [
+    {"step": 1, "name": "Design System Audit", "description": "Check if app follows defined design system (colors, typography, spacing)"},
+    {"step": 2, "name": "Component Consistency", "description": "Verify consistent use of buttons, cards, inputs, and other components"},
+    {"step": 3, "name": "Spacing & Layout", "description": "Check padding, margins, and layout consistency"},
+    {"step": 4, "name": "Typography Check", "description": "Verify text styles, font sizes, and weights are consistent"},
+    {"step": 5, "name": "Color Usage", "description": "Ensure colors match design system and brand guidelines"},
+    {"step": 6, "name": "Recommendations", "description": "Provide specific fixes for inconsistencies"}
+  ],
+  "checksPerformed": ["Theme consistency", "Component reusability", "Spacing patterns", "Typography hierarchy", "Color palette adherence", "Accessibility compliance"],
+  "deliverables": ["Consistency report", "List of violations", "Refactoring suggestions", "Design system improvements", "Component library recommendations"],
+  "version": "1.0.0"
+}

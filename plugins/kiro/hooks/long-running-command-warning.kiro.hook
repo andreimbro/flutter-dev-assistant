@@ -1,0 +1,13 @@
+{
+  "name": "Long-Running Command Warning",
+  "version": "1.0.0",
+  "description": "Warns about long-running commands like 'flutter run' or 'flutter test --watch'",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": "shell"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Check if the command contains 'flutter run' or 'flutter test --watch'. If so, warn: 'WARNING: Long-running command detected. Consider running in separate terminal.' Then proceed with the command."
+  }
+}

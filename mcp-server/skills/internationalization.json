@@ -1,0 +1,19 @@
+{
+  "skill": "internationalization",
+  "version": "1.0.0",
+  "description": "Internationalization (i18n) and localization (l10n) in Flutter with multiple language support",
+  "origin": "Flutter Dev Assistant",
+  "categories": ["i18n", "l10n", "Translations", "Locale Management", "RTL Support"],
+  "approaches": {
+    "intl": "Official Flutter internationalization package",
+    "easyLocalization": "Popular third-party solution",
+    "arb": "Application Resource Bundle format"
+  },
+  "implementation": ["Define supported locales", "Create ARB files", "Generate localization code", "Use localized strings", "Handle locale changes"],
+  "rtlSupport": ["Directionality widget", "TextDirection", "Bidirectional text", "Mirror layouts"],
+  "bestPractices": ["Externalize all strings", "Use plural forms", "Handle date/time formats", "Support RTL languages", "Test all locales"],
+  "packages": ["flutter_localizations", "intl", "easy_localization"],
+  "documentation": {
+    "overview": "skills/internationalization.md"
+  }
+}

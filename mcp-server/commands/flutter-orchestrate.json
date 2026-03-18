@@ -1,0 +1,902 @@
+{
+  "name": "flutter-orchestrate",
+  "description": "Coordinates multiple specialized assistants to execute complex Flutter development tasks through a phased, dependency-aware workflow",
+  "version": "1.0.0",
+  "purpose": {
+    "overview": "Decomposes complex tasks into phases, assigns appropriate assistants to each phase, and executes them in the correct order while respecting dependencies. Enables leveraging specialized expertise from multiple assistants (Build Resolver, TDD Guide, Architect) in a coordinated workflow that handles parallel execution, output passing, and failure recovery.",
+    "useCases": [
+      "Implementing complex features that require multiple types of expertise",
+      "Coordinating architectural design, implementation, and testing workflows",
+      "Executing multi-phase refactoring with verification at each step",
+      "Building features that span UI, business logic, testing, and security concerns",
+      "Automating end-to-end development workflows with quality gates",
+      "Orchestrating parallel work streams with clear dependencies"
+    ]
+  },
+  "usage": {
+    "syntax": "/flutter-orchestrate \"complex task description\" [--workflow=auto|custom] [--parallel=true|false]",
+    "parameters": {
+      "required": {
+        "task": {
+          "type": "string",
+          "description": "Clear description of the complex task to orchestrate (enclose in quotes if it contains spaces)"
+        }
+      },
+      "optional": {
+        "workflow": {
+          "type": "enum",
+          "values": [
+            "auto",
+            "custom"
+          ],
+          "default": "auto",
+          "description": "Workflow generation mode. 'auto' automatically decomposes task and assigns assistants. 'custom' uses a predefined workflow template."
+        },
+        "parallel": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable parallel execution of independent phases. 'true' executes independent phases concurrently, 'false' executes all phases sequentially."
+        },
+        "projectPath": {
+          "type": "string",
+          "description": "Absolute path to the Flutter project to analyze. If not provided, uses the current workspace directory."
+        }
+      }
+    }
+  },
+  "assistantAssignment": {
+    "rules": [
+      {
+        "phaseType": "Architecture",
+        "primaryAssistant": "Flutter Architect",
+        "fallbackAssistant": "General Assistant",
+        "criteria": "Architectural decisions, design patterns, scalability"
+      },
+      {
+        "phaseType": "Planning",
+        "primaryAssistant": "Flutter Plan",
+        "fallbackAssistant": "General Assistant",
+        "criteria": "Multi-phase planning, dependency mapping"
+      },
+      {
+        "phaseType": "Implementation",
+        "primaryAssistant": "General Assistant",
+        "fallbackAssistant": null,
+        "criteria": "Code writing, file creation, refactoring"
+      },
+      {
+        "phaseType": "Testing",
+        "primaryAssistant": "Flutter TDD Guide",
+        "fallbackAssistant": "General Assistant",
+        "criteria": "Test creation, TDD workflow, coverage"
+      },
+      {
+        "phaseType": "Build Resolution",
+        "primaryAssistant": "Flutter Build Resolver",
+        "fallbackAssistant": "General Assistant",
+        "criteria": "Build errors, dependency conflicts"
+      },
+      {
+        "phaseType": "Verification",
+        "primaryAssistant": "Flutter Verify",
+        "fallbackAssistant": "General Assistant",
+        "criteria": "Quality checks, analysis, coverage"
+      },
+      {
+        "phaseType": "Security",
+        "primaryAssistant": "Flutter Security",
+        "fallbackAssistant": "General Assistant",
+        "criteria": "Security audit, vulnerability scanning"
+      }
+    ],
+    "decisionTree": {
+      "architecturalGuidance": {
+        "yes": "Assign Flutter Architect to Architecture Phase",
+        "no": "Skip Architecture Phase"
+      },
+      "complexMultiPhase": {
+        "yes": "Assign Flutter Plan to Planning Phase",
+        "no": "Skip Planning Phase"
+      },
+      "codeImplementation": {
+        "yes": "Assign General Assistant to Implementation Phase",
+        "no": "Skip Implementation Phase"
+      },
+      "tddWorkflow": {
+        "yes": "Assign Flutter TDD Guide to Testing Phase (parallel with Implementation)",
+        "no": {
+          "testsAfterImplementation": {
+            "yes": "Assign Flutter TDD Guide to Testing Phase (after Implementation)",
+            "no": "Skip Testing Phase"
+          }
+        }
+      },
+      "buildErrors": {
+        "yes": "Assign Flutter Build Resolver to Build Resolution Phase",
+        "no": "Skip Build Resolution Phase"
+      },
+      "qualityVerification": {
+        "yes": "Assign Flutter Verify to Verification Phase",
+        "no": "Skip Verification Phase"
+      },
+      "securityReview": {
+        "yes": "Assign Flutter Security to Security Phase",
+        "no": "Skip Security Phase"
+      }
+    }
+  },
+  "bestPractices": {
+    "whenToUse": {
+      "use": [
+        "Task requires multiple types of expertise (architecture + testing + security)",
+        "Task has clear phases with dependencies",
+        "Task benefits from parallel execution of independent work",
+        "Task requires coordination between multiple assistants",
+        "Task needs comprehensive quality gates at each phase"
+      ],
+      "dontUse": [
+        "Task is simple and can be handled by a single assistant",
+        "Task has no clear phases or dependencies",
+        "Overhead of orchestration exceeds benefits",
+        "Task requires frequent human intervention between phases"
+      ]
+    },
+    "workflowDesign": [
+      "Keep phases focused: Each phase should have a single, clear responsibility",
+      "Minimize dependencies: Reduce dependencies to enable more parallel execution",
+      "Define clear outputs: Ensure each phase produces well-defined outputs for dependent phases",
+      "Plan for failure: Consider what happens if each phase fails and design recovery strategies",
+      "Use checkpoints: Save checkpoints between critical phases for recovery",
+      "Validate early: Run validation phases early to catch issues before expensive phases"
+    ],
+    "performanceOptimization": [
+      "Enable parallel execution: Use --parallel=true for workflows with independent phases",
+      "Order phases strategically: Place fast phases before slow phases when possible",
+      "Minimize output size: Keep phase outputs focused and avoid passing unnecessary data",
+      "Use caching: Cache expensive computations that multiple phases might need",
+      "Monitor progress: Track phase execution times to identify bottlenecks"
+    ]
+  },
+  "decompositionAlgorithm": {
+    "steps": [
+      "Identify required expertise areas (architecture, testing, security, etc.)",
+      "Create phases for each expertise area",
+      "Determine phase dependencies: Architecture → Planning → Implementation",
+      "Implementation → Testing (parallel with TDD)",
+      "Implementation → Build Resolution (if needed)",
+      "Testing → Verification",
+      "Implementation → Security",
+      "Assign assistants to phases based on expertise",
+      "Define phase inputs and outputs",
+      "Validate workflow for circular dependencies"
+    ]
+  },
+  "errorHandling": {
+    "phaseFailure": {
+      "actions": [
+        "Immediate Halt: Stop execution of the failed phase",
+        "Cascade Skip: Skip all phases that depend on the failed phase",
+        "Preserve Outputs: Keep outputs from successfully completed phases",
+        "Failure Report: Generate detailed failure report"
+      ],
+      "reportStructure": {
+        "failedPhase": {
+          "id": "string",
+          "name": "string",
+          "assistant": "string",
+          "task": "string",
+          "error": "string",
+          "stackTrace": "string (optional)"
+        },
+        "skippedPhases": "Array of {id, name, reason}",
+        "completedPhases": "Array of {id, name, outputs}",
+        "recommendations": "string[]"
+      }
+    },
+    "recoveryStrategies": [
+      "Retry Phase: Retry the failed phase with the same inputs",
+      "Manual Intervention: Provide guidance for manual fixes before retrying",
+      "Skip Phase: Skip the failed phase and continue with independent phases",
+      "Abort Workflow: Abort the entire workflow and report partial results"
+    ]
+  },
+  "examples": [
+    {
+      "name": "Feature Implementation with TDD",
+      "task": "Implement a user authentication feature with email/password login",
+      "phases": [
+        {
+          "id": "arch-001",
+          "name": "Architecture Design",
+          "assistant": "Flutter Architect",
+          "task": "Design authentication architecture with state management and security",
+          "dependsOn": [],
+          "outputs": [
+            "architecture_decisions",
+            "state_management_approach"
+          ]
+        },
+        {
+          "id": "plan-001",
+          "name": "Implementation Planning",
+          "assistant": "Flutter Plan",
+          "task": "Create detailed implementation plan for authentication feature",
+          "dependsOn": [
+            "arch-001"
+          ],
+          "outputs": [
+            "implementation_plan",
+            "task_breakdown"
+          ]
+        },
+        {
+          "id": "test-001",
+          "name": "Test Creation (RED)",
+          "assistant": "Flutter TDD Guide",
+          "task": "Write failing tests for authentication logic",
+          "dependsOn": [
+            "plan-001"
+          ],
+          "outputs": [
+            "test_files",
+            "test_results"
+          ]
+        },
+        {
+          "id": "impl-001",
+          "name": "Implementation (GREEN)",
+          "assistant": "General Assistant",
+          "task": "Implement authentication logic to pass tests",
+          "dependsOn": [
+            "test-001"
+          ],
+          "outputs": [
+            "source_files",
+            "implementation_complete"
+          ]
+        },
+        {
+          "id": "refactor-001",
+          "name": "Refactoring (REFACTOR)",
+          "assistant": "Flutter TDD Guide",
+          "task": "Refactor implementation while keeping tests green",
+          "dependsOn": [
+            "impl-001"
+          ],
+          "outputs": [
+            "refactored_code",
+            "test_results"
+          ]
+        },
+        {
+          "id": "security-001",
+          "name": "Security Review",
+          "assistant": "Flutter Security",
+          "task": "Audit authentication implementation for security vulnerabilities",
+          "dependsOn": [
+            "refactor-001"
+          ],
+          "outputs": [
+            "security_report",
+            "vulnerabilities"
+          ]
+        },
+        {
+          "id": "verify-001",
+          "name": "Final Verification",
+          "assistant": "Flutter Verify",
+          "task": "Run comprehensive verification checks",
+          "dependsOn": [
+            "security-001"
+          ],
+          "outputs": [
+            "verification_report",
+            "quality_metrics"
+          ]
+        }
+      ],
+      "executionOrder": "arch-001 → plan-001 → test-001 → impl-001 → refactor-001 → security-001 → verify-001"
+    },
+    {
+      "name": "Parallel Architecture and Testing",
+      "task": "Refactor state management from Provider to Riverpod",
+      "phases": [
+        {
+          "id": "arch-001",
+          "name": "Architecture Analysis",
+          "assistant": "Flutter Architect",
+          "task": "Analyze current Provider architecture and design Riverpod migration strategy",
+          "dependsOn": [],
+          "outputs": [
+            "migration_strategy",
+            "component_mapping"
+          ]
+        },
+        {
+          "id": "test-001",
+          "name": "Existing Test Analysis",
+          "assistant": "Flutter TDD Guide",
+          "task": "Analyze existing tests and identify tests that need updates",
+          "dependsOn": [],
+          "outputs": [
+            "test_analysis",
+            "tests_to_update"
+          ]
+        },
+        {
+          "id": "impl-001",
+          "name": "Riverpod Migration",
+          "assistant": "General Assistant",
+          "task": "Migrate Provider code to Riverpod following migration strategy",
+          "dependsOn": [
+            "arch-001"
+          ],
+          "outputs": [
+            "migrated_code",
+            "updated_files"
+          ]
+        },
+        {
+          "id": "test-002",
+          "name": "Test Updates",
+          "assistant": "Flutter TDD Guide",
+          "task": "Update tests for Riverpod and ensure all tests pass",
+          "dependsOn": [
+            "impl-001",
+            "test-001"
+          ],
+          "outputs": [
+            "updated_tests",
+            "test_results"
+          ]
+        },
+        {
+          "id": "verify-001",
+          "name": "Verification",
+          "assistant": "Flutter Verify",
+          "task": "Verify migration with analysis, tests, and build",
+          "dependsOn": [
+            "test-002"
+          ],
+          "outputs": [
+            "verification_report"
+          ]
+        }
+      ],
+      "executionOrder": "Phase 1 (parallel): arch-001, test-001 | Phase 2: impl-001 | Phase 3: test-002 | Phase 4: verify-001"
+    },
+    {
+      "name": "Build Error Recovery",
+      "task": "Fix build errors after dependency update",
+      "phases": [
+        {
+          "id": "build-001",
+          "name": "Build Error Analysis",
+          "assistant": "Flutter Build Resolver",
+          "task": "Analyze build errors and identify root causes",
+          "dependsOn": [],
+          "outputs": [
+            "error_analysis",
+            "fix_strategy"
+          ]
+        },
+        {
+          "id": "impl-001",
+          "name": "Apply Fixes",
+          "assistant": "Flutter Build Resolver",
+          "task": "Apply minimal fixes to resolve build errors",
+          "dependsOn": [
+            "build-001"
+          ],
+          "outputs": [
+            "fixed_code",
+            "build_status"
+          ]
+        },
+        {
+          "id": "test-001",
+          "name": "Test Execution",
+          "assistant": "Flutter TDD Guide",
+          "task": "Run tests to ensure fixes don't break functionality",
+          "dependsOn": [
+            "impl-001"
+          ],
+          "outputs": [
+            "test_results",
+            "coverage"
+          ]
+        },
+        {
+          "id": "verify-001",
+          "name": "Verification",
+          "assistant": "Flutter Verify",
+          "task": "Verify build succeeds and all checks pass",
+          "dependsOn": [
+            "test-001"
+          ],
+          "outputs": [
+            "verification_report"
+          ]
+        }
+      ],
+      "executionOrder": "build-001 → impl-001 → test-001 → verify-001"
+    }
+  ],
+  "execution": {
+    "dependencyResolution": {
+      "algorithm": "Topological sort",
+      "steps": [
+        "Build a directed acyclic graph (DAG) of phase dependencies",
+        "Identify phases with no dependencies (entry points)",
+        "Execute entry point phases first",
+        "As phases complete, mark their dependents as ready",
+        "Execute ready phases (in parallel if enabled)",
+        "Repeat until all phases complete or a failure occurs"
+      ]
+    },
+    "parallelStrategy": {
+      "enabled": "When --parallel=true (default)",
+      "behavior": [
+        "Independent phases (no shared dependencies) execute concurrently",
+        "Dependent phases wait for all dependencies to complete",
+        "Resource management ensures system resources are not overwhelmed",
+        "Progress tracking monitors all parallel executions"
+      ],
+      "example": "Time 0: Start arch-001, test-001 (parallel) | Time 1: arch-001 completes | Time 2: test-001 completes, start impl-001 | Time 3: impl-001 completes, start test-002, verify-001 (parallel)"
+    },
+    "outputPassing": {
+      "mechanism": [
+        "Phase outputs are captured and stored",
+        "Dependent phases receive outputs as context",
+        "Assistants can reference outputs in their task execution",
+        "Outputs are included in the final summary report"
+      ],
+      "example": {
+        "producer": {
+          "phase": "arch-001",
+          "assistant": "Flutter Architect",
+          "output": {
+            "architecture_decisions": "Use Riverpod for state management...",
+            "state_management_approach": "Feature-based provider organization..."
+          }
+        },
+        "consumer": {
+          "phase": "impl-001",
+          "assistant": "General Assistant",
+          "inputContext": {
+            "from_phase": "arch-001",
+            "architecture_decisions": "Use Riverpod for state management...",
+            "state_management_approach": "Feature-based provider organization..."
+          },
+          "task": "Implement authentication using the architecture decisions from arch-001"
+        }
+      }
+    }
+  },
+  "phaseStructure": {
+    "interface": {
+      "id": "string - Unique phase identifier",
+      "name": "string - Human-readable phase name",
+      "assistant": "string - Assigned assistant name",
+      "task": "string - Specific task for the assistant",
+      "dependsOn": "string[] - Array of phase IDs this phase depends on",
+      "outputs": "string[] - Array of output identifiers this phase produces",
+      "parallel": "boolean - Whether this phase can run in parallel with others (optional)"
+    },
+    "outputTypes": [
+      {
+        "type": "architecture_decisions",
+        "description": "Architectural decisions and rationale",
+        "producedBy": "Flutter Architect",
+        "consumedBy": [
+          "Planning",
+          "Implementation"
+        ]
+      },
+      {
+        "type": "implementation_plan",
+        "description": "Detailed implementation plan",
+        "producedBy": "Flutter Plan",
+        "consumedBy": [
+          "Implementation",
+          "Testing"
+        ]
+      },
+      {
+        "type": "source_files",
+        "description": "Implemented source code files",
+        "producedBy": "General Assistant",
+        "consumedBy": [
+          "Testing",
+          "Verification"
+        ]
+      },
+      {
+        "type": "test_files",
+        "description": "Test files and test code",
+        "producedBy": "Flutter TDD Guide",
+        "consumedBy": [
+          "Verification"
+        ]
+      },
+      {
+        "type": "test_results",
+        "description": "Test execution results",
+        "producedBy": "Flutter TDD Guide",
+        "consumedBy": [
+          "Verification"
+        ]
+      },
+      {
+        "type": "build_status",
+        "description": "Build success/failure status",
+        "producedBy": "Flutter Build Resolver",
+        "consumedBy": [
+          "Verification"
+        ]
+      },
+      {
+        "type": "security_report",
+        "description": "Security audit findings",
+        "producedBy": "Flutter Security",
+        "consumedBy": [
+          "Verification"
+        ]
+      },
+      {
+        "type": "verification_report",
+        "description": "Comprehensive quality report",
+        "producedBy": "Flutter Verify",
+        "consumedBy": [
+          "Summary"
+        ]
+      },
+      {
+        "type": "coverage_data",
+        "description": "Test coverage metrics",
+        "producedBy": "Flutter TDD Guide",
+        "consumedBy": [
+          "Verification"
+        ]
+      }
+    ]
+  },
+  "phaseTypes": [
+    {
+      "type": "Architecture",
+      "trigger": "Task requires architectural decisions or design patterns",
+      "assistant": "Flutter Architect",
+      "outputs": [
+        "architecture_decisions",
+        "component_structure",
+        "state_management_approach"
+      ],
+      "dependencies": [],
+      "notes": "Typically first phase"
+    },
+    {
+      "type": "Planning",
+      "trigger": "Task requires detailed implementation planning",
+      "assistant": "Flutter Plan Command",
+      "outputs": [
+        "implementation_plan",
+        "phases",
+        "tasks",
+        "dependencies"
+      ],
+      "dependencies": [
+        "Architecture phase (if architectural decisions needed)"
+      ]
+    },
+    {
+      "type": "Implementation",
+      "trigger": "Task requires code implementation",
+      "assistant": "General Flutter Assistant",
+      "outputs": [
+        "implemented_code",
+        "new_files",
+        "modified_files"
+      ],
+      "dependencies": [
+        "Architecture phase",
+        "Planning phase"
+      ]
+    },
+    {
+      "type": "Testing",
+      "trigger": "Task requires test creation or TDD workflow",
+      "assistant": "Flutter TDD Guide",
+      "outputs": [
+        "test_files",
+        "coverage_reports",
+        "test_results"
+      ],
+      "dependencies": [
+        "Implementation phase (or runs in parallel with TDD)"
+      ]
+    },
+    {
+      "type": "Build Resolution",
+      "trigger": "Build errors detected or anticipated",
+      "assistant": "Flutter Build Resolver",
+      "outputs": [
+        "build_fixes",
+        "dependency_resolutions",
+        "configuration_updates"
+      ],
+      "dependencies": [
+        "Implementation phase"
+      ]
+    },
+    {
+      "type": "Verification",
+      "trigger": "Quality checks required",
+      "assistant": "Flutter Verify Command",
+      "outputs": [
+        "verification_report",
+        "quality_metrics",
+        "action_items"
+      ],
+      "dependencies": [
+        "Implementation phase",
+        "Testing phase"
+      ]
+    },
+    {
+      "type": "Security",
+      "trigger": "Security review required",
+      "assistant": "Flutter Security Command",
+      "outputs": [
+        "security_audit_report",
+        "vulnerability_findings",
+        "remediation_steps"
+      ],
+      "dependencies": [
+        "Implementation phase"
+      ]
+    }
+  ],
+  "relatedAssistants": [
+    {
+      "assistant": "Flutter Architect",
+      "description": "Provides architectural guidance (assigned to Architecture phases)"
+    },
+    {
+      "assistant": "Flutter TDD Guide",
+      "description": "Guides test-driven development (assigned to Testing phases)"
+    },
+    {
+      "assistant": "Flutter Build Resolver",
+      "description": "Resolves build errors (assigned to Build Resolution phases)"
+    }
+  ],
+  "relatedCommands": [
+    {
+      "command": "/flutter-plan",
+      "description": "Create implementation plans (can be used as a phase in orchestration)"
+    },
+    {
+      "command": "/flutter-verify",
+      "description": "Run verification checks (can be used as a phase in orchestration)"
+    },
+    {
+      "command": "/flutter-checkpoint",
+      "description": "Save progress snapshots between phases"
+    },
+    {
+      "command": "/flutter-security",
+      "description": "Run security audits (can be used as a phase in orchestration)"
+    }
+  ],
+  "summaryReport": {
+    "structure": {
+      "task": "string",
+      "status": "success | partial_success | failure",
+      "totalPhases": "number",
+      "completedPhases": "number",
+      "failedPhases": "number",
+      "skippedPhases": "number",
+      "duration": "number",
+      "phaseResults": "PhaseResult[]",
+      "aggregatedOutputs": "AggregatedOutputs",
+      "recommendations": "string[]"
+    },
+    "phaseResult": {
+      "phaseId": "string",
+      "phaseName": "string",
+      "assistant": "string",
+      "status": "completed | failed | skipped",
+      "duration": "number",
+      "outputs": "PhaseOutput[]",
+      "error": "string (optional)"
+    },
+    "aggregatedOutputs": {
+      "architectureDecisions": "string[] (optional)",
+      "implementationPlan": "any (optional)",
+      "sourceFiles": "string[] (optional)",
+      "testFiles": "string[] (optional)",
+      "testResults": "any (optional)",
+      "coverageData": "any (optional)",
+      "securityFindings": "any[] (optional)",
+      "verificationReport": "any (optional)"
+    }
+  },
+  "technicalImplementation": {
+    "workflowEngine": {
+      "features": [
+        "Uses a directed acyclic graph (DAG) to represent phase dependencies",
+        "Implements topological sort for execution order determination",
+        "Supports parallel execution using async/await patterns",
+        "Validates workflows before execution to catch errors early",
+        "Provides real-time progress updates during execution",
+        "Generates comprehensive summary reports with aggregated results"
+      ]
+    },
+    "assistantIntegration": {
+      "invocationInterface": {
+        "assistant": "string",
+        "task": "string",
+        "context": "PhaseContext"
+      },
+      "phaseContext": {
+        "phaseId": "string",
+        "inputs": "PhaseOutput[]",
+        "previousPhases": "PhaseResult[]"
+      }
+    },
+    "stateManagement": {
+      "phaseStatus": "Tracks each phase as pending, running, completed, failed, or skipped",
+      "outputs": "Stores outputs from completed phases for dependent phases",
+      "progress": "Tracks overall workflow progress for reporting",
+      "errors": "Captures errors and failures for debugging and recovery"
+    }
+  },
+  "troubleshooting": [
+    {
+      "issue": "Circular Dependency Detected",
+      "symptom": "Workflow validation fails with circular dependency error",
+      "solution": [
+        "Review the dependency graph visualization",
+        "Identify the cycle in the dependencies",
+        "Remove or reorder dependencies to break the cycle",
+        "Ensure phases have a clear linear or tree-like dependency structure"
+      ]
+    },
+    {
+      "issue": "Phase Fails Repeatedly",
+      "symptom": "A phase fails multiple times with the same error",
+      "solution": [
+        "Review the phase failure report for error details",
+        "Check if the phase has all required inputs from dependencies",
+        "Verify the assistant assigned to the phase is appropriate",
+        "Consider manual intervention to fix the underlying issue",
+        "Use /flutter-checkpoint to save progress before retrying"
+      ]
+    },
+    {
+      "issue": "Slow Workflow Execution",
+      "symptom": "Workflow takes longer than expected to complete",
+      "solution": [
+        "Enable parallel execution with --parallel=true",
+        "Review phase dependencies to identify unnecessary sequential execution",
+        "Consider breaking large phases into smaller, parallelizable phases",
+        "Check if any phase is waiting for external resources (network, file I/O)",
+        "Monitor phase execution times to identify bottlenecks"
+      ]
+    },
+    {
+      "issue": "Output Not Passed to Dependent Phase",
+      "symptom": "Dependent phase doesn't receive expected outputs from previous phase",
+      "solution": [
+        "Verify the previous phase completed successfully",
+        "Check the output type names match between producer and consumer",
+        "Review the phase output structure in the summary report",
+        "Ensure the dependent phase explicitly references the required outputs",
+        "Check for typos in output type names"
+      ]
+    }
+  ],
+  "usageExamples": [
+    {
+      "description": "Simple Feature Implementation",
+      "command": "/flutter-orchestrate \"Add a settings screen with theme toggle\"",
+      "workflow": "Architecture → Planning → Implementation → Testing → Verification"
+    },
+    {
+      "description": "Complex Feature with Security",
+      "command": "/flutter-orchestrate \"Implement payment processing with Stripe integration\"",
+      "workflow": "Architecture → Planning → Security Review → Implementation → Testing → Build Resolution → Final Verification"
+    },
+    {
+      "description": "Refactoring with TDD",
+      "command": "/flutter-orchestrate \"Refactor authentication logic to use clean architecture\" --parallel=true",
+      "workflow": "Parallel: Architecture Analysis, Existing Test Analysis | Sequential: Implementation, Test Updates, Refactoring, Verification"
+    },
+    {
+      "description": "Custom Workflow",
+      "command": "/flutter-orchestrate \"Build user profile feature\" --workflow=custom",
+      "workflow": "Uses a predefined workflow template for user profile features with standard phases"
+    }
+  ],
+  "validation": {
+    "preExecution": [
+      "Circular Dependency Detection: Ensures no phase depends on itself directly or indirectly",
+      "Assistant Availability: Verifies all assigned assistants are available",
+      "Phase Completeness: Ensures all phases have required fields (id, name, assistant, task)",
+      "Dependency Validity: Verifies all dependsOn references point to valid phase IDs",
+      "Output Consistency: Checks that dependent phases can consume outputs from their dependencies"
+    ],
+    "circularDependencyDetection": {
+      "algorithm": "Depth-first search (DFS)",
+      "steps": [
+        "For each phase: Mark phase as 'visiting'",
+        "For each dependency: If dependency is 'visiting': CIRCULAR DEPENDENCY DETECTED",
+        "If dependency is 'unvisited': Recursively visit dependency",
+        "Mark phase as 'visited'"
+      ],
+      "errorExample": "Error: Circular dependency detected in workflow\nCycle: impl-001 → test-001 → refactor-001 → impl-001\n\nPhase impl-001 depends on refactor-001\nPhase refactor-001 depends on test-001\nPhase test-001 depends on impl-001\n\nWorkflow cannot be executed. Please revise phase dependencies."
+    },
+    "errorHandling": {
+      "onFailure": [
+        "Error Report: Detailed error message with specific validation failure",
+        "Dependency Visualization: Shows the dependency graph with the problematic cycle highlighted",
+        "Suggestions: Provides suggestions for fixing the workflow definition",
+        "No Execution: Workflow is not executed until validation passes"
+      ]
+    }
+  },
+  "workflow": {
+    "steps": [
+      {
+        "order": 0,
+        "name": "Environment Detection",
+        "description": "Detects Flutter/FVM setup (checks for .fvm directory or .fvmrc, determines if commands should use 'fvm flutter' or 'flutter')"
+      },
+      {
+        "order": 1,
+        "name": "Task Analysis",
+        "description": "Analyzes the complex task to identify required expertise areas and deliverables"
+      },
+      {
+        "order": 2,
+        "name": "Phase Decomposition",
+        "description": "Breaks down the task into logical phases with clear inputs, outputs, and success criteria"
+      },
+      {
+        "order": 3,
+        "name": "Assistant Assignment",
+        "description": "Assigns appropriate specialized assistants to each phase based on expertise requirements"
+      },
+      {
+        "order": 4,
+        "name": "Dependency Resolution",
+        "description": "Identifies dependencies between phases and builds a directed acyclic graph (DAG)"
+      },
+      {
+        "order": 5,
+        "name": "Workflow Validation",
+        "description": "Validates the workflow for circular dependencies and ensures all phases are executable"
+      },
+      {
+        "order": 6,
+        "name": "Phase Execution",
+        "description": "Executes phases in dependency order, with parallel execution of independent phases"
+      },
+      {
+        "order": 7,
+        "name": "Output Passing",
+        "description": "Passes outputs from completed phases to dependent phases as inputs"
+      },
+      {
+        "order": 8,
+        "name": "Progress Tracking",
+        "description": "Monitors phase execution and provides real-time progress updates"
+      },
+      {
+        "order": 9,
+        "name": "Summary Generation",
+        "description": "Aggregates results from all phases into a comprehensive summary report"
+      }
+    ]
+  }
+}

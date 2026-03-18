@@ -1,0 +1,77 @@
+# Flutter Dev Assistant - Plugin Cache Ignore Rules
+# Files matching these patterns are not copied to the plugin cache during installation
+
+# Version Control
+.git/
+.gitignore
+.gitattributes
+.github/
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.env
+.env.local
+
+# Build & Dependencies
+node_modules/
+dist/
+build/
+.next/
+out/
+
+# Plugin dependencies (new modular structure)
+plugins/claude-code/node_modules/
+plugins/kiro/node_modules/
+mcp-server/node_modules/
+
+# Package Management
+yarn.lock
+package-lock.json
+plugins/claude-code/package-lock.json
+plugins/kiro/package-lock.json
+mcp-server/package-lock.json
+
+# Documentation (not needed in plugin cache)
+# BUT KEEP command, skill, and agent markdown files for plugin to work
+docs/
+README*
+CONTRIBUTING.md
+CHANGELOG.md
+LICENSE
+!/plugins/claude-code/commands/*.md
+!/plugins/claude-code/skills/*.md
+!/plugins/claude-code/assistants/*.md
+!/plugins/kiro/steering/
+
+# Configuration (template files, not needed at runtime)
+plugins/claude-code/.claude-plugin/settings.json.template
+plugins/kiro/install.sh
+.claudeignore
+
+# Testing
+__tests__/
+tests/
+*.test.js
+*.spec.js
+coverage/
+mcp-server/coverage/
+
+# CI/CD
+.github/workflows/
+
+# Temporary files
+*.tmp
+*.log
+*.cache
+
+# Archives
+*.zip
+*.tar.gz
+
+# Kiro spec files (internal development)
+.kiro/specs/

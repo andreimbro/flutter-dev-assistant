@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "flutter-dev-assistant": {
+      "command": "node",
+      "args": [
+        "/Users/YOUR_USERNAME/.kiro/powers/installed/flutter-dev-assistant/index.js"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "flutter_verify",
+        "flutter_security",
+        "flutter_plan",
+        "flutter_checkpoint",
+        "flutter_orchestrate",
+        "flutter_learn"
+      ],
+      "env": {
+        "KIRO_WORKSPACE_DIR": "${workspaceFolder}"
+      }
+    }
+  }
+}

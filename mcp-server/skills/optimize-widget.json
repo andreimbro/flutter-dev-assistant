@@ -1,0 +1,18 @@
+{
+  "name": "optimize-widget",
+  "description": "Workflow to optimize widget performance by reducing rebuilds, improving composition, and implementing performance best practices",
+  "origin": "Flutter Dev Assistant",
+  "type": "assistant-workflow",
+  "whenToUse": ["Widget feels slow", "Excessive rebuilds detected", "Complex widget tree", "Performance profiling shows issues", "Before production release"],
+  "workflowSteps": [
+    {"step": 1, "name": "Widget Analysis", "description": "Analyze widget structure and rebuild patterns"},
+    {"step": 2, "name": "Rebuild Optimization", "description": "Identify and fix unnecessary rebuilds"},
+    {"step": 3, "name": "Composition Improvement", "description": "Break down complex widgets into smaller, reusable components"},
+    {"step": 4, "name": "Const Optimization", "description": "Add const constructors where possible"},
+    {"step": 5, "name": "Caching Strategy", "description": "Implement caching for expensive computations"},
+    {"step": 6, "name": "Performance Validation", "description": "Measure improvements with Flutter DevTools"}
+  },
+  "optimizationTechniques": ["Const constructors", "RepaintBoundary", "Selective rebuilds with Consumer/Selector", "Widget extraction", "Memoization", "ListView.builder for lists", "Cached images"],
+  "deliverables": ["Performance analysis", "Optimization recommendations", "Refactored code examples", "Before/after metrics", "Best practices guide"],
+  "version": "1.0.0"
+}

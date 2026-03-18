@@ -1,0 +1,18 @@
+{
+  "name": "manage-deps",
+  "description": "Workflow to manage Flutter dependencies including updates, conflict resolution, security audits, and dependency optimization",
+  "origin": "Flutter Dev Assistant",
+  "type": "assistant-workflow",
+  "whenToUse": ["Adding new packages", "Updating dependencies", "Resolving version conflicts", "Security vulnerability found", "Reducing app size", "Before major releases"],
+  "workflowSteps": [
+    {"step": 1, "name": "Dependency Audit", "description": "Review all dependencies for updates, security issues, and usage"},
+    {"step": 2, "name": "Update Strategy", "description": "Plan safe update path with testing checkpoints"},
+    {"step": 3, "name": "Conflict Resolution", "description": "Resolve version conflicts and dependency constraints"},
+    {"step": 4, "name": "Security Check", "description": "Scan for known vulnerabilities and outdated packages"},
+    {"step": 5, "name": "Optimization", "description": "Remove unused dependencies and suggest lighter alternatives"},
+    {"step": 6, "name": "Testing Plan", "description": "Define testing strategy for dependency updates"}
+  },
+  "checksPerformed": ["Outdated packages", "Security vulnerabilities", "Version conflicts", "Unused dependencies", "License compatibility", "Bundle size impact"],
+  "deliverables": ["Dependency report", "Update recommendations", "Conflict resolution plan", "Security audit", "Testing checklist"],
+  "version": "1.0.0"
+}

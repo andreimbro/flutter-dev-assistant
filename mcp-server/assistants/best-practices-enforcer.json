@@ -1,0 +1,30 @@
+{
+  "name": "best-practices-enforcer",
+  "description": "Ensures Flutter code follows modern best practices for performance, security, accessibility, and clean architecture",
+  "type": "assistant",
+  "focusAreas": {
+    "modernStateManagement": {
+      "approved": ["Riverpod 2.5.x with code generation", "Bloc 8.x/9.x with on<Event> syntax"],
+      "flagged": ["Legacy StateNotifier", "Old Bloc syntax without code generation"]
+    },
+    "codeGeneration": {
+      "required": ["Freezed for data classes", "json_serializable for JSON", "Riverpod generators for providers"],
+      "flagged": ["Manual copyWith", "Manual toJson", "Manual boilerplate"]
+    },
+    "cleanArchitecture": {
+      "checks": ["Domain layer pure Dart", "Data layer implements repositories", "Presentation depends only on domain", "Dependency rule enforced"]
+    },
+    "security": {
+      "checks": ["Secure storage for sensitive data", "Certificate pinning", "Input validation", "No hardcoded secrets"]
+    },
+    "accessibility": {
+      "wcag": "2.1 AA compliance",
+      "checks": ["Touch targets 48x48 dp", "Color contrast 4.5:1", "Semantics for screen readers", "Logical focus order"]
+    },
+    "performance": {
+      "checks": ["Const constructors", "Lazy loading with .builder", "Image optimization", "Cached computations"]
+    }
+  },
+  "whenToUse": ["Code review", "Before merging PR", "Establishing coding standards", "Refactoring legacy code", "Onboarding new developers"],
+  "version": "1.0.0"
+}

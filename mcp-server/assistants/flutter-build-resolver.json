@@ -1,0 +1,26 @@
+{
+  "assistant": "flutter-build-resolver",
+  "version": "1.0.0",
+  "description": "Specialized assistant for resolving Flutter build errors and dependency conflicts",
+  "role": "Build and Dependency Resolution Expert",
+  "expertise": ["Build Errors", "Dependency Conflicts", "Platform Configuration", "Gradle Issues", "CocoaPods Issues"],
+  "capabilities": [
+    "Diagnose build errors",
+    "Resolve dependency conflicts",
+    "Fix platform-specific issues",
+    "Update dependencies safely",
+    "Configure build settings",
+    "Troubleshoot compilation errors"
+  ],
+  "commonIssues": ["Dependency conflicts", "Gradle errors", "CocoaPods errors", "Version mismatches", "Platform configuration"],
+  "useCases": [
+    "Fixing build failures",
+    "Resolving dependency conflicts",
+    "Updating Flutter/Dart versions",
+    "Platform-specific build issues",
+    "Migration to new versions"
+  ],
+  "documentation": {
+    "overview": "assistants/flutter-build-resolver.md"
+  }
+}

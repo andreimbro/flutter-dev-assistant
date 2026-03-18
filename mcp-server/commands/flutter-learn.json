@@ -1,0 +1,194 @@
+{
+  "name": "flutter-learn",
+  "description": "Extracts patterns, best practices, and mistakes from development sessions to build a knowledge base of reusable solutions",
+  "version": "1.0.0",
+  "purpose": {
+    "overview": "Analyzes your current development session history to identify recurring patterns, successful solutions, best practices, and mistakes. Extracts reusable widget patterns with code examples, categorizes them by type, assigns confidence scores, and stores them for future reference. Helps build a personalized knowledge base that grows with your experience.",
+    "useCases": [
+      "Completing a feature to capture successful patterns",
+      "After solving a difficult problem to preserve the solution",
+      "At the end of a development session to extract learnings",
+      "After code reviews to capture best practices",
+      "When you want to update existing skills with new patterns",
+      "To identify anti-patterns and mistakes to avoid"
+    ]
+  },
+  "usage": {
+    "syntax": "/flutter-learn [--category=type] [--min-confidence=0.7] [--suggest-skills] [--list] [--show=pattern-name] [--platform=claude|kiro]",
+    "parameters": {
+      "optional": {
+        "category": {
+          "type": "enum",
+          "values": [
+            "performance",
+            "architecture",
+            "ui",
+            "state",
+            "security",
+            "all"
+          ],
+          "description": "Filter patterns by category"
+        },
+        "minConfidence": {
+          "type": "number",
+          "default": 0.7,
+          "range": "0.0-1.0",
+          "description": "Only show patterns with confidence score above threshold"
+        },
+        "suggestSkills": {
+          "type": "boolean",
+          "description": "Generate suggestions for skill updates or new skill creation"
+        },
+        "list": {
+          "type": "boolean",
+          "description": "List all stored patterns with confidence scores"
+        },
+        "show": {
+          "type": "string",
+          "description": "Display details of a specific pattern"
+        },
+        "platform": {
+          "type": "enum",
+          "values": [
+            "claude",
+            "kiro"
+          ],
+          "default": "claude",
+          "description": "Specify storage location. 'claude': .claude/flutter-dev-assistant/patterns/ (project-local), 'kiro': .kiro/patterns/ (project-local)"
+        },
+        "projectPath": {
+          "type": "string",
+          "description": "Absolute path to the Flutter project to analyze. If not provided, uses the current workspace directory."
+        }
+      }
+    }
+  },
+  "bestPractices": {
+    "defaultProjectLocalStorage": "By default, patterns save to Claude's project-local directory: .claude/flutter-dev-assistant/patterns/",
+    "recommendedWorkflow": [
+      "At end of each development session: /flutter-learn",
+      "Review suggestions for skills: /flutter-learn --suggest-skills --min-confidence=0.7",
+      "Check all patterns in project: ls -la .claude/flutter-dev-assistant/patterns/",
+      "Commit patterns to version control: git add .claude/ && git commit -m 'chore: learn patterns from session'"
+    ],
+    "keyAdvantages": [
+      "All patterns stay within the project workspace",
+      "Can be committed to version control and shared with team",
+      "No dependency on user global config",
+      "Works consistently across different machines/environments",
+      "Keeps Claude config separate from Kiro",
+      "Synchronized storage structure with flutter-checkpoint"
+    ],
+    "centralizedLearning": "All Flutter tools share patterns from .claude/flutter-dev-assistant/patterns/. Patterns grow over time within the project. High-confidence patterns can be promoted to official skills. Mistakes tracked to avoid repeating them. Best practices documented for team reference."
+  },
+  "patternCategories": {
+    "ui": {
+      "description": "Widget structures, layouts, animations, styling",
+      "examples": [
+        "Custom buttons",
+        "Responsive grids",
+        "Animated transitions"
+      ]
+    },
+    "state": {
+      "description": "State handling approaches",
+      "examples": [
+        "Provider patterns",
+        "BLoC implementations",
+        "StreamBuilder usage"
+      ]
+    },
+    "performance": {
+      "description": "Optimization techniques",
+      "examples": [
+        "Caching strategies",
+        "Lazy loading",
+        "List optimization"
+      ]
+    },
+    "architecture": {
+      "description": "Code organization and structure",
+      "examples": [
+        "Repository pattern",
+        "Clean architecture",
+        "Dependency injection"
+      ]
+    },
+    "security": {
+      "description": "Security best practices",
+      "examples": [
+        "Secure storage",
+        "Input validation",
+        "Authentication flows"
+      ]
+    }
+  },
+  "relatedCommands": [
+    {
+      "command": "/flutter-checkpoint",
+      "description": "Create checkpoints to track when patterns were applied"
+    },
+    {
+      "command": "/flutter-verify",
+      "description": "Verify code quality before extracting patterns"
+    },
+    {
+      "command": "/flutter-plan",
+      "description": "Use learned patterns in implementation planning"
+    }
+  ],
+  "workflow": {
+    "steps": [
+      {
+        "order": 0,
+        "name": "Environment Detection",
+        "description": "Detects Flutter/FVM setup and platform (Claude Code vs Kiro)"
+      },
+      {
+        "order": 1,
+        "name": "Session Analysis",
+        "description": "Analyzes current session history including code changes, conversations, and problem-solving approaches"
+      },
+      {
+        "order": 2,
+        "name": "Pattern Identification",
+        "description": "Identifies recurring patterns and solutions that were successfully applied"
+      },
+      {
+        "order": 3,
+        "name": "Widget Pattern Extraction",
+        "description": "Extracts reusable widget patterns with complete code examples and context"
+      },
+      {
+        "order": 4,
+        "name": "Best Practice Identification",
+        "description": "Identifies best practices that were applied during the session"
+      },
+      {
+        "order": 5,
+        "name": "Mistake Detection",
+        "description": "Identifies mistakes and anti-patterns that were corrected"
+      },
+      {
+        "order": 6,
+        "name": "Categorization",
+        "description": "Categorizes patterns by type (performance, architecture, UI, state management, security)"
+      },
+      {
+        "order": 7,
+        "name": "Confidence Scoring",
+        "description": "Assigns initial confidence score of 0.5 to newly extracted patterns"
+      },
+      {
+        "order": 8,
+        "name": "Automatic Pattern Storage",
+        "description": "Stores patterns to platform-specific directory"
+      },
+      {
+        "order": 9,
+        "name": "Skill Suggestions",
+        "description": "If --suggest-skills flag used: Suggests updates to existing skills or creation of new skills based on learned patterns"
+      }
+    ]
+  }
+}

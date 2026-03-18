@@ -1,0 +1,240 @@
+{
+  "name": "flutter-help",
+  "description": "Interactive help system for discovering Flutter Dev Assistant commands, skills, and assistants with search and filtering capabilities",
+  "purpose": {
+    "overview": "Provides an interactive interface for exploring the Flutter Dev Assistant's 42 total resources: 8 Commands (workflow automation), 23 Skills (knowledge modules), and 11 Assistants (specialized AI).",
+    "useCases": [
+      "You're new to Flutter Dev Assistant and want to learn what's available",
+      "You need to find a specific command, skill, or assistant",
+      "You're not sure which tool to use for your current task",
+      "You want to explore topics like state management, animations, or IoT",
+      "You need to understand when to use different assistants"
+    ]
+  },
+  "usage": {
+    "syntax": "/flutter-help [category|item-name] [--search=keyword] [--format=table|detailed]",
+    "parameters": {
+      "optional": {
+        "category": {
+          "type": "enum",
+          "values": [
+            "commands",
+            "skills",
+            "assistants"
+          ],
+          "description": "Show specific category. 'commands': Show all 8 workflow commands. 'skills': Show all 23 knowledge modules. 'assistants': Show all 11 specialized assistants"
+        },
+        "itemName": {
+          "type": "string",
+          "description": "Show detailed information about a specific command, skill, or assistant. Examples: flutter-verify, state-management-comparison, Flutter Architect"
+        },
+        "search": {
+          "type": "string",
+          "description": "Search across all resources for keyword (case-insensitive). Example: /flutter-help --search=riverpod"
+        },
+        "format": {
+          "type": "enum",
+          "values": [
+            "table",
+            "detailed"
+          ],
+          "default": "table",
+          "description": "'table': Compact table view with summaries. 'detailed': Full information with examples and related resources"
+        },
+        "projectPath": {
+          "type": "string",
+          "description": "Absolute path to the Flutter project to analyze. If not provided, uses the current workspace directory."
+        }
+      }
+    }
+  },
+  "interactiveMode": {
+    "description": "When invoked without parameters, enters interactive mode with menu-driven navigation",
+    "mainMenu": {
+      "options": [
+        "1. Commands (8) — Workflow automation",
+        "2. Skills (24) — Knowledge modules",
+        "3. Assistants (11) — AI specialists",
+        "4. Search — Find specific item",
+        "5. Quick Reference — Skill decision trees",
+        "q. Quit"
+      ]
+    },
+    "navigation": [
+      "Category Selection: Choose which resource type to explore",
+      "Item Listing: View summarized list of items in category",
+      "Detail View: Get complete information about selected item",
+      "Related Resources: Discover connected commands, skills, and assistants",
+      "Back/Quit: Navigate back to previous menu or exit"
+    ]
+  },
+  "resources": {
+    "commands": {
+      "count": 8,
+      "description": "Workflow automation",
+      "items": [
+        "flutter-verify: Comprehensive verification",
+        "flutter-plan: Implementation planning",
+        "flutter-checkpoint: Progress snapshots",
+        "flutter-orchestrate: Multi-assistant coordination",
+        "flutter-learn: Session analysis",
+        "flutter-security: Security auditing",
+        "flutter-init: Project initialization"
+      ]
+    },
+    "skills": {
+      "count": 24,
+      "description": "Knowledge modules",
+      "categories": {
+        "coreBestPractices": 5,
+        "architecture": 3,
+        "animations": 3,
+        "iot": 3,
+        "i18n": 2,
+        "navigation": 2,
+        "testing": 3,
+        "other": 3
+      }
+    },
+    "assistants": {
+      "count": 11,
+      "description": "Specialized AI",
+      "items": [
+        "Best Practices Enforcer: Code quality & checks",
+        "Dependency Manager: Package management",
+        "Flutter Architect: Architecture decisions",
+        "Flutter Build Resolver: Build error diagnosis",
+        "Flutter TDD Guide: Test-driven development",
+        "Migration Assistant: Framework migrations",
+        "Package Advisor: Package selection",
+        "Performance Auditor: Performance analysis",
+        "State Flow Analyzer: State management",
+        "UI Consistency Checker: Design system checks",
+        "Widget Optimizer: Widget performance"
+      ]
+    }
+  },
+  "searchAlgorithm": {
+    "matching": "Case-insensitive keyword matching",
+    "searchIn": [
+      "name",
+      "description",
+      "tags",
+      "content preview"
+    ],
+    "ranking": "name match > description > content",
+    "relevanceIndicators": {
+      "high": "★★★",
+      "medium": "★★",
+      "low": "★"
+    },
+    "grouping": "Results grouped by category (Skills, Assistants, Commands)"
+  },
+  "dataSources": {
+    "commands": {
+      "source": "Parsed dynamically from commands/*.md YAML frontmatter",
+      "extracts": [
+        "name",
+        "description",
+        "file path"
+      ],
+      "excludes": [
+        "flutter-help.md"
+      ]
+    },
+    "skills": {
+      "source": "Parsed from docs/SKILLS_INDEX.md organized summary tables",
+      "extracts": [
+        "Name",
+        "one-line summary",
+        "category"
+      ],
+      "categories": [
+        "Core",
+        "Architecture",
+        "Animations",
+        "IoT",
+        "I18n",
+        "Navigation",
+        "Testing"
+      ]
+    },
+    "assistants": {
+      "source": "Static list from assistant file headers and descriptions",
+      "count": 11,
+      "includes": "Links to assistant documentation"
+    }
+  },
+  "outputFormats": {
+    "categoryListView": {
+      "format": "Table with columns: #, Name, Description",
+      "actions": "Select item (1-N), 'b' for back, 'q' to quit"
+    },
+    "detailedView": {
+      "sections": [
+        "Description",
+        "Usage",
+        "When to Use",
+        "What it Checks/Does",
+        "Related Resources (Commands, Assistants, Skills)",
+        "Documentation (file path)"
+      ],
+      "actions": "[d] View full docs, [b] Back, [q] Quit"
+    },
+    "searchResults": {
+      "grouping": "By category (Skills, Assistants, Commands)",
+      "relevance": "Indicated by star rating (★★★, ★★, ★)",
+      "actions": "Select result (1-N), 'n' for new search, 'q' to quit"
+    }
+  },
+  "relatedCommands": [
+    {
+      "command": "/flutter-learn",
+      "description": "Extract learning patterns from development sessions"
+    },
+    {
+      "command": "/flutter-init",
+      "description": "Initialize projects (reference for interactive mode pattern)"
+    },
+    {
+      "command": "/flutter-plan",
+      "description": "Generate detailed implementation plans"
+    },
+    {
+      "command": "/flutter-verify",
+      "description": "Run comprehensive verification checks"
+    }
+  ],
+  "relatedSkills": [
+    {
+      "skill": "quick-index.md",
+      "description": "Comprehensive skill reference with decision trees for state management, animations, IoT, architecture, performance, theming, and package evaluation"
+    }
+  ],
+  "implementationNotes": {
+    "interactiveImplementation": "Uses AskUserQuestion tool for menu-driven navigation: category selection, item selection from lists, search input, navigation options (back, quit)",
+    "fileStructure": "All command info stored in markdown with YAML frontmatter. Single source of truth for each resource. Links enable easy reference and documentation lookup. No hardcoded descriptions — all derived from actual files",
+    "gracefulDegradation": "Gracefully handles missing or malformed files. All links include full file paths for direct reference. Compatible with both Claude Code and Kiro IDE"
+  },
+  "requirements": [
+    "Flutter SDK 3.0.0+ (for consistency with other commands)",
+    "Read access to command, skill, and assistant markdown files",
+    "No external dependencies or network requirements"
+  ],
+  "notes": [
+    "Help command is read-only and makes no changes to code",
+    "File paths in output are absolute for easy navigation",
+    "Interactive mode works in any development environment",
+    "Search is fast even with 42 total resources",
+    "Gracefully handles missing or malformed files",
+    "All links include full file paths for direct reference",
+    "Compatible with both Claude Code and Kiro IDE"
+  ],
+  "nextSteps": [
+    "Read docs/SKILLS_INDEX.md — Decision trees and topic guides",
+    "Explore specific skill files — Detailed patterns and examples",
+    "Review docs/COMMANDS_GUIDE.md — Complete command reference",
+    "Check assistant documentation — Specialized knowledge bases"
+  ],
+  "version": "1.0.0"
+}

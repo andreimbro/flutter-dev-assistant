@@ -1,0 +1,13 @@
+{
+  "name": "Check Outdated Packages on Session Start",
+  "version": "1.0.0",
+  "description": "Checks for outdated packages when starting a new session",
+  "when": {
+    "type": "promptSubmit"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "if [ -f pubspec.yaml ]; then echo '[Flutter Dev Assistant] Checking for outdated packages...'; flutter pub outdated --no-color 2>/dev/null | head -15 || echo 'All packages up to date'; fi",
+    "timeout": 30
+  }
+}

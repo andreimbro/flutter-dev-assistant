@@ -1,0 +1,18 @@
+{
+  "skill": "animations-basics",
+  "version": "1.0.0",
+  "description": "Flutter animation fundamentals including implicit animations, explicit animations, and custom animations",
+  "origin": "Flutter Dev Assistant",
+  "categories": ["Implicit Animations", "Explicit Animations", "Custom Animations", "Hero Animations", "Staggered Animations"],
+  "implicitAnimations": ["AnimatedContainer", "AnimatedOpacity", "AnimatedPositioned", "AnimatedPadding", "AnimatedAlign"],
+  "explicitAnimations": {
+    "controllers": "AnimationController for fine control",
+    "tweens": "Tween for value interpolation",
+    "curves": "Curves for easing functions"
+  },
+  "bestPractices": ["Dispose controllers", "Use const for static widgets", "Optimize performance", "60 FPS target", "Use AnimatedBuilder"],
+  "packages": ["animations", "flutter_animate", "rive"],
+  "documentation": {
+    "overview": "skills/animations-basics.md"
+  }
+}

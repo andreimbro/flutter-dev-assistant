@@ -1,0 +1,38 @@
+{
+  "id": "pat-1773861409450-5rwaw8303",
+  "trigger": {
+    "keywords": [
+      "vvjp"
+    ],
+    "taskType": "general",
+    "complexity": "low"
+  },
+  "solution": {
+    "phases": [
+      {
+        "assistant": "Flutter Architect",
+        "task": "Design"
+      }
+    ],
+    "dependencies": [
+      {
+        "id": "p1",
+        "dependsOn": []
+      }
+    ],
+    "outcomes": "success"
+  },
+  "context": {
+    "phaseCount": 1,
+    "assistants": [
+      "Flutter Architect"
+    ],
+    "parallelizable": false
+  },
+  "confidence": 1,
+  "category": "general",
+  "usageCount": 4,
+  "successCount": 4,
+  "createdAt": "2026-03-18T19:16:49.450Z",
+  "updatedAt": "2026-03-18T19:16:49.454Z"
+}

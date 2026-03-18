@@ -1,0 +1,111 @@
+{
+  "name": "advanced-architecture",
+  "description": "Advanced Flutter architecture patterns including modular architecture, feature modules, dependency injection with get_it, multi-package structure, and scalable app organization for large enterprise applications",
+  "origin": "Flutter Dev Assistant",
+  "whenToUse": {
+    "useAdvancedArchitecture": [
+      "Large applications (50+ screens, multiple teams)",
+      "Modular development (independent feature teams)",
+      "Multiple apps sharing code (mobile, web, admin)",
+      "Enterprise requirements (strict separation, testability)",
+      "Long-term maintenance (5+ years lifecycle)",
+      "Complex DI needs (scopes, environments, factories)"
+    ],
+    "useSimpleArchitecture": [
+      "Small apps (< 20 screens)",
+      "Single team (< 5 developers)",
+      "Simple requirements (CRUD, basic features)",
+      "Rapid prototyping (MVP, proof of concept)",
+      "Short-term projects (< 1 year)"
+    ],
+    "note": "For simple apps, use Riverpod for both state management and DI. See flutter-best-practices.md"
+  },
+  "modularArchitecture": {
+    "multiPackageStructure": {
+      "packages": {
+        "core": "Shared utilities (constants, extensions, utils)",
+        "design_system": "UI components (atoms, molecules, organisms, theme)",
+        "features": "Feature modules (auth, products, cart)",
+        "shared": "Shared layers (network, storage, analytics)"
+      },
+      "apps": {
+        "mobile": "Mobile app",
+        "web": "Web app",
+        "admin": "Admin app"
+      }
+    },
+    "featureModuleStructure": {
+      "layers": ["data/", "domain/", "presentation/"],
+      "publicAPI": "Export only public API, hide internal implementation"
+    }
+  },
+  "dependencyInjection": {
+    "getItInjectableSetup": {
+      "packages": {
+        "get_it": "^7.6.0",
+        "injectable": "^2.3.0",
+        "injectable_generator": "^2.4.0"
+      }
+    },
+    "injectableAnnotations": {
+      "singleton": "Created once",
+      "lazySingleton": "Created on first use",
+      "injectable": "Factory - new instance every time",
+      "named": "Named instances",
+      "environment": "Environment-specific (dev, prod)"
+    },
+    "moduleRegistration": {
+      "description": "Use @module for complex dependency setup",
+      "features": ["Async initialization with @preResolve", "Environment-specific implementations", "Factory methods for complex objects"]
+    }
+  },
+  "featureFlags": {
+    "appConfig": {
+      "environments": ["dev", "staging", "prod"],
+      "properties": ["apiBaseUrl", "apiKey", "enableAnalytics", "enableCrashReporting", "logLevel"]
+    },
+    "remoteConfig": {
+      "description": "Use Firebase Remote Config or similar",
+      "features": ["Runtime feature toggles", "A/B testing", "Gradual rollouts"]
+    }
+  },
+  "navigationArchitecture": {
+    "goRouterWithModules": {
+      "features": ["Feature module routes", "Authentication guards", "Deep linking", "Nested navigation with ShellRoute"],
+      "pattern": "Each feature module exports its own routes"
+    }
+  },
+  "eventBus": {
+    "purpose": "Cross-module communication without tight coupling",
+    "events": ["UserLoggedIn", "UserLoggedOut", "CartUpdated"],
+    "pattern": "Modules subscribe to events they care about"
+  },
+  "testingModularArchitecture": {
+    "moduleTesting": {
+      "approach": "Test each module independently",
+      "setup": "Register test dependencies, register module, verify all dependencies resolve"
+    }
+  },
+  "bestPractices": {
+    "do": [
+      "Keep feature modules independent",
+      "Use dependency injection for all dependencies",
+      "Define clear public APIs for modules",
+      "Use event bus for cross-module communication",
+      "Implement feature flags for gradual rollouts",
+      "Use environment-specific configurations"
+    ],
+    "dont": [
+      "Don't create circular dependencies between modules",
+      "Don't expose internal implementation details",
+      "Don't hardcode configuration values",
+      "Don't use global state",
+      "Don't skip dependency injection for 'simple' cases"
+    ]
+  },
+  "performanceConsiderations": {
+    "lazyLoadingModules": "Only load module when needed",
+    "codeSplitting": "Use deferred loading for large features: import 'package:admin_feature/admin_feature.dart' deferred as admin;"
+  },
+  "version": "1.0.0"
+}

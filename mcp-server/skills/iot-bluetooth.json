@@ -1,0 +1,34 @@
+{
+  "name": "iot-bluetooth",
+  "description": "Bluetooth connectivity in Flutter including BLE (Bluetooth Low Energy) and Classic Bluetooth with practical examples and best practices",
+  "origin": "Flutter Dev Assistant",
+  "bluetoothLowEnergy": {
+    "package": "flutter_blue_plus: ^1.32.0",
+    "features": ["Device scanning", "Connection management", "Service discovery", "Characteristic read/write", "Notifications"],
+    "permissions": {
+      "android": ["BLUETOOTH_SCAN", "BLUETOOTH_CONNECT", "ACCESS_FINE_LOCATION"],
+      "ios": ["NSBluetoothAlwaysUsageDescription", "NSBluetoothPeripheralUsageDescription"]
+    }
+  },
+  "classicBluetooth": {
+    "package": "flutter_bluetooth_serial: ^0.4.0",
+    "features": ["Serial communication", "Device pairing", "Data streaming"],
+    "bestFor": "Legacy Bluetooth devices, serial communication"
+  },
+  "commonUseCases": [
+    "IoT device control",
+    "Sensor data collection",
+    "Wearable device integration",
+    "Smart home automation",
+    "Health monitoring devices"
+  ],
+  "bestPractices": [
+    "Request permissions before scanning",
+    "Handle connection state changes",
+    "Implement reconnection logic",
+    "Dispose connections properly",
+    "Test on real devices (BLE doesn't work on emulators)",
+    "Handle platform-specific differences"
+  ],
+  "version": "1.0.0"
+}

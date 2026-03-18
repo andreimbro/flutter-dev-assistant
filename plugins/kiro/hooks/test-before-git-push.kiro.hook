@@ -1,0 +1,13 @@
+{
+  "name": "Test Before Git Push",
+  "version": "1.0.0",
+  "description": "Runs tests before allowing git push to prevent pushing broken code",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": "shell"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "If the command contains 'git push', first run 'flutter test --no-pub' to verify all tests pass. If tests fail, cancel the push and report the failure. If tests pass, proceed with the push."
+  }
+}
