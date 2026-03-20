@@ -1,8 +1,7 @@
 ---
 inclusion: auto
+description: Protocol for verifying task completion including analysis, tests, build, and security checks
 ---
-
-# Completion Verification Protocol
 
 ## CRITICAL RULE: Always Verify Completion
 

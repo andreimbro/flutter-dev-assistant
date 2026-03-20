@@ -1,8 +1,7 @@
 ---
 inclusion: manual
+description: Strategy for saving development checkpoints and tracking progress across Flutter projects
 ---
-
-# Checkpoint Strategy
 
 Guide for effectively using `flutter-checkpoint` to track development progress and compare states.
 

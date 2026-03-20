@@ -461,6 +461,36 @@ analyzer:
 ```
 
 
+## FVM (Flutter Version Management)
+
+When a project uses FVM, always prefix Flutter commands accordingly.
+
+### Detection
+- `.fvm/` directory or `.fvmrc` file in project root
+- `.kiro/.flutter_command` file containing the command prefix
+
+### Usage Rules
+```bash
+# With FVM
+fvm flutter run
+fvm flutter build apk
+fvm flutter pub get
+fvm dart analyze
+fvm dart format .
+
+# Without FVM
+flutter run
+flutter build apk
+flutter pub get
+dart analyze
+dart format .
+```
+
+- If `.kiro/.flutter_command` exists, use its content as the command prefix
+- Never mix `flutter` and `fvm flutter` in the same project
+- When creating scripts or CI pipelines, respect the FVM setting
+- Use `fvm use <version>` to pin a Flutter version per project
+
 
 ## Error Handling & Resilience
 

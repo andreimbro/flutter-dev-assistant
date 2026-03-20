@@ -1,8 +1,7 @@
 ---
 inclusion: manual
+description: Security audit workflow using flutter-security for vulnerability scanning and OWASP compliance
 ---
-
-# Security Workflow with flutter-security
 
 Comprehensive guide for conducting security audits and implementing secure Flutter applications using the `flutter-security` MCP tool.
 

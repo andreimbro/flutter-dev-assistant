@@ -1,8 +1,7 @@
 ---
 inclusion: manual
+description: Complete workflow for developing Flutter features using MCP tools, from planning to deployment
 ---
-
-# Feature Development Workflow
 
 Complete workflow for developing Flutter features using MCP tools, from planning to deployment.
 

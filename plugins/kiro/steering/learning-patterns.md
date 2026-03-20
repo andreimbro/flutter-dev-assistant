@@ -1,8 +1,7 @@
 ---
 inclusion: manual
+description: How to use flutter-learn to extract patterns, best practices, and mistakes from development sessions
 ---
-
-# Learning Patterns with flutter-learn
 
 Guide for extracting and applying patterns and best practices from your Flutter development sessions using `flutter-learn`.
 

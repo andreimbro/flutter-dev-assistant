@@ -1,8 +1,7 @@
 ---
-inclusion: manual
+inclusion: auto
+description: Guide to all Flutter Dev Assistant MCP tools available in Kiro with usage examples
 ---
-
-# MCP Tools Guide for Kiro
 
 Complete guide to using Flutter Dev Assistant MCP tools in Kiro.
 

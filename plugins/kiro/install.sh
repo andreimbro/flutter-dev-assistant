@@ -3,7 +3,7 @@
 # Flutter Dev Assistant - Kiro Installation Script
 #
 # Two installation modes:
-#   GLOBAL (once):   Installs MCP server, assistants, steering files system-wide
+#   GLOBAL (once):   Installs MCP server, steering files, and skills system-wide
 #   PROJECT (optional): Adds skills, hooks, and workspace config to a Flutter project
 #
 # Usage:
@@ -39,7 +39,6 @@ MCP_SERVER_DIR="$PLUGIN_ROOT/mcp-server"
 
 # Counters
 SKILLS_INSTALLED=0
-ASSISTANTS_INSTALLED=0
 HOOKS_INSTALLED=0
 MCP_INSTALLED=0
 
@@ -58,7 +57,7 @@ print_usage() {
 Usage: install.sh [MODE] [OPTIONS]
 
 Modes:
-  (no flags)                    Global install (MCP server + assistants + steering)
+  (no flags)                    Global install (MCP server + steering + skills)
   --project [path]              Global install + project setup
   --project-only [path]         Project setup only (assumes global already done)
   --uninstall                   Remove global installation
@@ -106,15 +105,15 @@ install_global() {
     echo ""
 
     install_mcp_server
-    install_assistants
     install_steering_files
+    install_global_skills
 
     echo ""
     log_success "Global installation complete!"
-    log_info "MCP server and assistants are available across all projects."
+    log_info "MCP server, steering, and skills are available across all projects."
     log_info "Restart Kiro to activate."
     echo ""
-    log_info "To add project-specific skills and hooks to a Flutter project:"
+    log_info "To add project-specific hooks and workspace config to a Flutter project:"
     echo "  ./plugins/kiro/install.sh --project /path/to/flutter/project"
     echo ""
 }
@@ -154,34 +153,6 @@ install_mcp_server() {
     log_success "MCP server installed to: $user_powers"
 }
 
-install_assistants() {
-    log_info "Installing assistants to ~/.kiro/steering/ ..."
-
-    local global_steering="$HOME/.kiro/steering"
-    mkdir -p "$global_steering"
-
-    for assistant_file in "$PLUGIN_ROOT/plugins/kiro/steering"/*.md; do
-        [ -f "$assistant_file" ] || continue
-        local filename
-        filename=$(basename "$assistant_file")
-        local temp_file
-        temp_file=$(mktemp)
-
-        cat > "$temp_file" << 'EOF'
----
-inclusion: manual
----
-
-EOF
-        cat "$assistant_file" >> "$temp_file"
-        cp "$temp_file" "$global_steering/$filename"
-        rm "$temp_file"
-
-        log_success "Installed: $filename"
-        ((ASSISTANTS_INSTALLED++))
-    done
-}
-
 install_steering_files() {
     log_info "Installing steering workflow guides..."
 
@@ -191,6 +162,20 @@ install_steering_files() {
     local global_steering="$HOME/.kiro/steering"
     mkdir -p "$global_steering"
 
+    # Clean up legacy assistant files from previous install versions
+    local assistants_src="$PLUGIN_ROOT/mcp-server/assistants"
+    if [ -d "$assistants_src" ]; then
+        for f in "$assistants_src"/*.json; do
+            [ -f "$f" ] || continue
+            local legacy_name
+            legacy_name=$(basename "$f" .json).md
+            if [ -f "$global_steering/$legacy_name" ]; then
+                rm "$global_steering/$legacy_name"
+                log_info "Removed legacy: $legacy_name"
+            fi
+        done
+    fi
+
     for steering_file in "$steering_src"/*.md; do
         [ -f "$steering_file" ] || continue
         local filename
@@ -198,6 +183,48 @@ install_steering_files() {
         cp "$steering_file" "$global_steering/$filename"
         log_success "Installed: $filename"
     done
+}
+
+install_global_skills() {
+    log_info "Installing skills to ~/.kiro/skills/ ..."
+
+    local skills_src="$SCRIPT_DIR/skills"
+    [ -d "$skills_src" ] || { log_warning "No skills dir - skipping"; return 0; }
+
+    local global_skills="$HOME/.kiro/skills"
+    mkdir -p "$global_skills"
+
+    local count=0
+    for skill_file in "$skills_src"/*.md; do
+        [ -f "$skill_file" ] || continue
+        local filename
+        filename=$(basename "$skill_file" .md)
+        local skill_dir="$global_skills/$filename"
+        mkdir -p "$skill_dir"
+
+        # Check if the file already has 'inclusion:' in front-matter
+        if head -5 "$skill_file" | grep -q '^inclusion:'; then
+            cp "$skill_file" "$skill_dir/SKILL.md"
+        else
+            # Inject 'inclusion: manual' into existing front-matter so Kiro recognizes it
+            local temp_file
+            temp_file=$(mktemp)
+            if head -1 "$skill_file" | grep -q '^---'; then
+                # Has front-matter: add inclusion after opening ---
+                awk 'NR==1{print; print "inclusion: manual"; next}1' "$skill_file" > "$temp_file"
+            else
+                # No front-matter: wrap with one
+                printf '%s\n%s\n%s\n' '---' 'inclusion: manual' '---' > "$temp_file"
+                cat "$skill_file" >> "$temp_file"
+            fi
+            cp "$temp_file" "$skill_dir/SKILL.md"
+            rm "$temp_file"
+        fi
+
+        log_success "Installed: $filename"
+        ((count++))
+    done
+    log_success "Installed $count global skills"
 }
 
 # ─── MCP Registration (global mcp.json) ─────────────────────────────────────
@@ -408,6 +435,42 @@ with open('$config','w') as f: json.dump(c,f,indent=2)
         done
     done
     log_success "Removed $removed steering files"
+
+    # Remove legacy assistant steering files (from previous install versions)
+    local legacy_removed=0
+    local assistants_src="$PLUGIN_ROOT/mcp-server/assistants"
+    if [ -d "$assistants_src" ]; then
+        for f in "$assistants_src"/*.json; do
+            [ -f "$f" ] || continue
+            local name
+            name=$(basename "$f" .json).md
+            if [ -f "$global_steering/$name" ]; then
+                rm "$global_steering/$name"
+                ((legacy_removed++))
+            fi
+        done
+    fi
+    [ "$legacy_removed" -gt 0 ] && log_success "Removed $legacy_removed legacy assistant files"
+
+    # Remove global skills (only ours — installed from plugins/kiro/skills/)
+    local global_skills="$HOME/.kiro/skills"
+    local skills_removed=0
+    if [ -d "$SCRIPT_DIR/skills" ]; then
+        for f in "$SCRIPT_DIR/skills"/*.md; do
+            [ -f "$f" ] || continue
+            local name
+            name=$(basename "$f" .md)
+            if [ -d "$global_skills/$name" ]; then
+                rm -rf "$global_skills/$name"
+                ((skills_removed++))
+            fi
+            # Also clean up legacy flat files from previous versions
+            if [ -f "$global_skills/$name.md" ]; then
+                rm "$global_skills/$name.md"
+            fi
+        done
+    fi
+    log_success "Removed $skills_removed global skills"
 
     echo ""
     log_success "Global uninstall complete. Restart Kiro to apply."

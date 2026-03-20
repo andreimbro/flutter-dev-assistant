@@ -1,8 +1,7 @@
 ---
-inclusion: manual
+inclusion: auto
+description: When and how to use flutter-verify for pre-commit checks, code quality, and build verification
 ---
-
-# When to Use flutter-verify
 
 Guide for knowing when and how to use the `flutter-verify` MCP tool in your Flutter development workflow.
 
