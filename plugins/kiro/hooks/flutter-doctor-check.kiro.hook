@@ -1,0 +1,13 @@
+{
+  "name": "Flutter Doctor Check on Session Start",
+  "version": "1.0.0",
+  "description": "Runs flutter doctor to check environment health when starting a session",
+  "when": {
+    "type": "promptSubmit"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "if [ -f pubspec.yaml ]; then flutter doctor --no-color 2>/dev/null | grep -E '\\[✓\\]|\\[✗\\]|\\[!\\]' | head -5 || true; fi",
+    "timeout": 20
+  }
+}

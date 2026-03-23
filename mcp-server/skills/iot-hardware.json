@@ -1,0 +1,28 @@
+{
+  "name": "iot-hardware",
+  "description": "Hardware connectivity in Flutter including NFC (Near Field Communication) and USB Serial communication with practical examples",
+  "origin": "Flutter Dev Assistant",
+  "nfc": {
+    "package": "nfc_manager: ^3.3.0",
+    "features": ["Tag reading", "Tag writing", "NDEF messages", "Tag detection"],
+    "permissions": {
+      "android": ["NFC permission", "NFC hardware feature"],
+      "ios": ["NFCReaderUsageDescription", "NFC formats array"]
+    },
+    "useCases": ["Access control", "Payment systems", "Product authentication", "Smart posters"]
+  },
+  "usbSerial": {
+    "package": "usb_serial: ^0.5.0",
+    "features": ["Serial communication", "Device detection", "Data streaming", "Baud rate configuration"],
+    "platforms": ["Android only"],
+    "useCases": ["Arduino communication", "Industrial equipment", "Embedded systems"]
+  },
+  "bestPractices": [
+    "Check hardware availability before use",
+    "Handle permission requests gracefully",
+    "Implement proper error handling",
+    "Test on real devices (hardware features don't work on emulators)",
+    "Provide fallback for unsupported devices"
+  ],
+  "version": "1.0.0"
+}

@@ -1,0 +1,30 @@
+{
+  "name": "migration-assistant",
+  "description": "Guides Flutter framework migrations including null safety, Flutter 3.x, Material 3, and state management migrations",
+  "type": "assistant",
+  "migrationTypes": {
+    "nullSafety": {
+      "from": "Dart 2.x",
+      "to": "Dart 3.x null safety",
+      "steps": ["Analyze dependencies", "Migrate dependencies first", "Run dart migrate", "Fix migration issues", "Test thoroughly"]
+    },
+    "flutter3": {
+      "from": "Flutter 2.x",
+      "to": "Flutter 3.x",
+      "breakingChanges": ["Material 3 defaults", "Deprecated APIs", "Platform-specific changes"],
+      "steps": ["Update Flutter SDK", "Fix deprecated APIs", "Test on all platforms", "Update dependencies"]
+    },
+    "material3": {
+      "from": "Material 2",
+      "to": "Material 3",
+      "changes": ["New color system", "Updated components", "Typography changes", "Elevation changes"],
+      "steps": ["Enable Material 3", "Update theme", "Test all screens", "Adjust custom widgets"]
+    },
+    "stateManagement": {
+      "migrations": ["Provider to Riverpod", "Bloc 7.x to 8.x/9.x", "setState to Provider", "GetX to Riverpod"],
+      "approach": ["Incremental migration", "Feature-by-feature", "Maintain backward compatibility", "Comprehensive testing"]
+    }
+  },
+  "whenToUse": ["Upgrading Flutter version", "Adopting new framework features", "Migrating state management", "Modernizing legacy code"],
+  "version": "1.0.0"
+}

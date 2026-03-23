@@ -1,0 +1,108 @@
+{
+  "name": "testing-strategies",
+  "description": "Comprehensive Flutter testing guide covering widget tests, unit tests, integration tests, mocking strategies, and testing state management solutions",
+  "origin": "Flutter Dev Assistant",
+  "testingPyramid": {
+    "description": "Distribution of test types",
+    "e2eTests": "5-10%",
+    "integrationTests": "20-30%",
+    "unitAndWidgetTests": "60-75%"
+  },
+  "testTypes": {
+    "widgetTests": {
+      "purpose": "Test individual widgets in isolation",
+      "whenToUse": ["Testing widget rendering", "Verifying user interactions", "Checking widget state changes", "Testing widget composition"],
+      "bestPractices": ["Use const widgets in tests", "Test one behavior per test", "Use descriptive test names", "Mock external dependencies", "Test accessibility"]
+    },
+    "unitTests": {
+      "purpose": "Test business logic and utilities",
+      "whenToUse": ["Testing pure functions", "Validating business logic", "Testing data models", "Verifying calculations"],
+      "bestPractices": ["Test edge cases", "Test error conditions", "Use meaningful assertions", "Keep tests fast", "Avoid testing implementation details"]
+    },
+    "integrationTests": {
+      "purpose": "Test feature flows and screen interactions",
+      "whenToUse": ["Testing complete user flows", "Verifying navigation", "Testing API integration", "End-to-end scenarios"]
+    }
+  },
+  "testingStateManagement": {
+    "bloc": {
+      "tool": "bloc_test",
+      "example": "blocTest<CounterCubit, int>('emits [1] when increment is called', build: () => CounterCubit(), act: (cubit) => cubit.increment(), expect: () => [1])"
+    },
+    "riverpod": {
+      "approach": "Use ProviderContainer",
+      "example": "final container = ProviderContainer(); expect(container.read(counterProvider), 0); container.read(counterProvider.notifier).increment(); expect(container.read(counterProvider), 1);"
+    },
+    "provider": {
+      "approach": "Test ChangeNotifier directly",
+      "example": "final model = CounterModel(); expect(model.count, 0); model.increment(); expect(model.count, 1);"
+    }
+  },
+  "mockingStrategies": {
+    "mockito": {
+      "approach": "Code generation with @GenerateMocks",
+      "features": ["Type-safe mocks", "Verify call counts", "Argument matchers"]
+    },
+    "mocktail": {
+      "approach": "No code generation",
+      "features": ["Null-safe", "Easy to use", "No boilerplate"],
+      "recommended": true
+    }
+  },
+  "goldenTests": {
+    "purpose": "Test visual appearance of widgets",
+    "whenToUse": ["Verifying pixel-perfect designs", "Catching unintended visual changes", "Testing responsive layouts", "Documenting widget appearance"],
+    "command": "flutter test --update-goldens"
+  },
+  "testOrganization": {
+    "fileStructure": {
+      "test/unit": ["models/", "services/", "utils/"],
+      "test/widget": ["screens/", "components/"],
+      "test/integration": ["flows/"],
+      "test/helpers": ["mocks.dart", "test_utils.dart"]
+    },
+    "namingConvention": "[unit under test]_[scenario]_[expected result]"
+  },
+  "coverageGoals": {
+    "businessLogic": "90-100%",
+    "widgets": "70-80%",
+    "integration": "Key flows",
+    "overall": "80%+"
+  },
+  "testingChecklist": [
+    "All business logic has unit tests",
+    "Critical widgets have widget tests",
+    "Main user flows have integration tests",
+    "Edge cases are tested",
+    "Error scenarios are tested",
+    "Mocks are used for external dependencies",
+    "Tests are fast (<5 seconds for unit/widget)",
+    "Tests are deterministic (no flaky tests)",
+    "Accessibility is tested",
+    "Golden tests for critical UI"
+  ],
+  "commonPitfalls": {
+    "testingImplementationDetails": {
+      "bad": "Testing internal state: expect(widget._privateField, equals(value))",
+      "good": "Testing behavior: expect(find.text('Expected Output'), findsOneWidget)"
+    },
+    "flakyTests": {
+      "bad": "Time-dependent: await Future.delayed(Duration(seconds: 1))",
+      "good": "Use pumpAndSettle: await tester.pumpAndSettle()"
+    },
+    "overMocking": {
+      "bad": "Mocking everything: MockTheme, MockMediaQuery, MockNavigator",
+      "good": "Use real objects when possible: MaterialApp(home: MyWidget())"
+    }
+  },
+  "runningTests": {
+    "commands": [
+      "flutter test - Run all tests",
+      "flutter test --coverage - Run with coverage",
+      "flutter test test/unit/calculator_test.dart - Run specific test file",
+      "flutter test --name 'login' - Run tests matching pattern",
+      "flutter test --update-goldens - Update golden files"
+    ]
+  },
+  "version": "1.0.0"
+}

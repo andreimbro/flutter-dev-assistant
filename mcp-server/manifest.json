@@ -1,0 +1,16 @@
+{
+  "name": "flutter-dev-assistant",
+  "displayName": "Flutter Dev Assistant",
+  "version": "1.0.0",
+  "description": "Comprehensive Flutter development assistant with 7 powerful commands for project initialization, quality assurance, security auditing, planning, and progress tracking",
+  "keywords": ["flutter", "development", "quality", "security", "testing", "planning"],
+  "mcpServers": {
+    "flutter-dev-assistant": {
+      "command": "node",
+      "args": ["{{POWER_DIR}}/mcp-server/index.js"],
+      "env": {
+        "KIRO_WORKSPACE_DIR": "${workspaceFolder}"
+      }
+    }
+  }
+}

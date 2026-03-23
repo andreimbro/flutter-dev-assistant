@@ -1,0 +1,16 @@
+{
+  "name": "ui-consistency-checker",
+  "description": "Ensures UI consistency across the app by checking design system compliance, spacing, colors, typography, and component usage",
+  "type": "assistant",
+  "checks": {
+    "designSystem": ["Theme consistency", "Color palette adherence", "Typography hierarchy", "Spacing patterns"],
+    "components": ["Button styles", "Card layouts", "Input fields", "Navigation elements", "Component reusability"],
+    "spacing": ["Padding consistency", "Margin patterns", "Layout alignment", "Grid system"],
+    "typography": ["Font families", "Font sizes", "Font weights", "Line heights", "Text styles"],
+    "colors": ["Primary/secondary colors", "Accent colors", "Error/success states", "Disabled states", "Brand guidelines"],
+    "accessibility": ["Touch target sizes", "Color contrast", "Semantic labels", "Focus indicators"]
+  },
+  "deliverables": ["Consistency report", "Violation list", "Refactoring suggestions", "Design system improvements", "Component library recommendations"],
+  "whenToUse": ["Before design review", "After adding new screens", "Ensuring brand consistency", "Preparing for production", "Onboarding new developers"],
+  "version": "1.0.0"
+}

@@ -1,0 +1,121 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    name: Test MCP Server
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: mcp-server/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./mcp-server
+        run: npm ci
+
+      - name: Run linter
+        working-directory: ./mcp-server
+        run: npm run lint
+
+      - name: Check formatting
+        working-directory: ./mcp-server
+        run: npm run format:check
+
+      - name: Run tests
+        working-directory: ./mcp-server
+        run: npm run test:coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./mcp-server/coverage/lcov.info
+          flags: mcp-server
+          name: mcp-server-coverage
+
+  validate-json:
+    name: Validate JSON Files
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate plugin.json
+        run: |
+          if ! jq empty .claude-plugin/plugin.json; then
+            echo "Invalid JSON in plugin.json"
+            exit 1
+          fi
+
+      - name: Validate marketplace.json
+        run: |
+          if ! jq empty .claude-plugin/marketplace.json; then
+            echo "Invalid JSON in marketplace.json"
+            exit 1
+          fi
+
+      - name: Validate manifest.json
+        run: |
+          if ! jq empty mcp-server/manifest.json; then
+            echo "Invalid JSON in manifest.json"
+            exit 1
+          fi
+
+  markdown-lint:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint Markdown files
+        uses: DavidAnson/markdownlint-cli2-action@v15
+        with:
+          globs: |
+            **/*.md
+            !node_modules
+            !mcp-server/node_modules
+
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Run npm audit
+        working-directory: ./mcp-server
+        run: npm audit --audit-level=moderate
+
+  link-checker:
+    name: Check Links
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check links in README
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          config-file: '.github/markdown-link-check-config.json'

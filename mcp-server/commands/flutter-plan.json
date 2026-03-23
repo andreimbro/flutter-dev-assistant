@@ -1,0 +1,178 @@
+{
+  "name": "flutter-plan",
+  "description": "Generates a detailed, phase-by-phase implementation plan for Flutter features with dependencies, testing strategies, and complexity estimates",
+  "version": "1.0.0",
+  "purpose": {
+    "overview": "Analyzes a feature description and creates a comprehensive implementation plan that breaks down the work into manageable phases with clear dependencies. Helps approach complex features systematically by identifying required Flutter components, packages, architectural decisions, and potential risks before coding.",
+    "useCases": [
+      "Starting a new feature implementation",
+      "Planning a complex refactoring",
+      "Estimating effort for a feature request",
+      "Identifying technical dependencies and risks",
+      "Creating a roadmap for multi-phase development",
+      "Onboarding team members to a new feature"
+    ]
+  },
+  "usage": {
+    "syntax": "/flutter-plan \"feature description\" [--detail=basic|standard|comprehensive] [--format=markdown|json] [--platform=claude|kiro] [--output-dir=path]",
+    "parameters": {
+      "required": {
+        "feature": {
+          "type": "string",
+          "description": "Clear description of the feature to implement (enclose in quotes if it contains spaces)"
+        }
+      },
+      "optional": {
+        "detail": {
+          "type": "enum",
+          "values": [
+            "basic",
+            "standard",
+            "comprehensive"
+          ],
+          "default": "standard",
+          "description": "Level of detail in the plan. 'basic': High-level phases only. 'standard': Phases with tasks and dependencies. 'comprehensive': Detailed tasks with code examples and patterns"
+        },
+        "format": {
+          "type": "enum",
+          "values": [
+            "markdown",
+            "json"
+          ],
+          "default": "markdown",
+          "description": "Output format. 'markdown': Human-readable markdown format. 'json': Structured JSON for tool integration"
+        },
+        "platform": {
+          "type": "enum",
+          "values": [
+            "claude",
+            "kiro"
+          ],
+          "default": "claude",
+          "description": "Specify storage location. 'claude': .claude/flutter-dev-assistant/plans/ (project-local). 'kiro': .kiro/plans/ (project-local)"
+        },
+        "outputDir": {
+          "type": "string",
+          "description": "Custom output directory for saved plans (default: .claude/flutter-dev-assistant/plans/). Path relative to project root. Plans are ALWAYS automatically saved to this directory"
+        },
+        "projectPath": {
+          "type": "string",
+          "description": "Absolute path to the Flutter project to analyze. If not provided, uses the current workspace directory."
+        }
+      }
+    }
+  },
+  "bestPractices": {
+    "automaticSaving": "Plans are ALWAYS saved automatically - no special flags needed!",
+    "defaultProjectLocalStorage": "By default, plans save to Claude's project-local directory: .claude/flutter-dev-assistant/plans/",
+    "recommendedWorkflow": [
+      "Generate plan (automatically saved to .claude/flutter-dev-assistant/plans/)",
+      "Plan is now saved and displayed in console",
+      "Review and share with team: cat .claude/flutter-dev-assistant/plans/feature_PLAN.md",
+      "Commit to git: git add .claude/ && git commit -m 'docs: add implementation plan'",
+      "Reference during implementation: /flutter-verify, /flutter-checkpoint"
+    ],
+    "keyAdvantages": [
+      "All plans stay in the project workspace",
+      "Can be committed to version control and shared with team",
+      "No dependency on user global config",
+      "Works consistently across different machines/environments",
+      "Keeps Claude config separate from Kiro",
+      "Synchronized storage structure with flutter-checkpoint"
+    ],
+    "idealUseCases": [
+      "New feature: Create plan before starting implementation",
+      "Team collaboration: Commit plans to version control for team reference",
+      "Progress tracking: Plans work alongside checkpoints created with /flutter-checkpoint",
+      "Refactoring: Create detailed plan before major refactoring work",
+      "Documentation: Plans serve as implementation documentation"
+    ]
+  },
+  "relatedAssistants": [
+    {
+      "assistant": "Flutter Architect",
+      "description": "Provides detailed architectural guidance for complex decisions in the plan"
+    },
+    {
+      "assistant": "Flutter TDD Guide",
+      "description": "Helps implement the testing strategy defined in each phase"
+    },
+    {
+      "assistant": "Flutter Build Resolver",
+      "description": "Assists with dependency conflicts when adding recommended packages"
+    }
+  ],
+  "relatedCommands": [
+    {
+      "command": "/flutter-verify",
+      "description": "Run verification checks after implementing each phase"
+    },
+    {
+      "command": "/flutter-checkpoint",
+      "description": "Save progress snapshots after completing each phase"
+    },
+    {
+      "command": "/flutter-orchestrate",
+      "description": "Execute a multi-phase implementation with coordinated assistants"
+    }
+  ],
+  "workflow": {
+    "steps": [
+      {
+        "order": 0,
+        "name": "Environment Detection",
+        "description": "Detects Flutter/FVM setup"
+      },
+      {
+        "order": 1,
+        "name": "Requirements Analysis",
+        "description": "Analyzes the feature description to identify core requirements, user interactions, and data flows"
+      },
+      {
+        "order": 2,
+        "name": "Component Identification",
+        "description": "Identifies required Flutter widgets, screens, services, models, and utilities"
+      },
+      {
+        "order": 3,
+        "name": "Package Recommendation",
+        "description": "Suggests relevant pub.dev packages with version constraints based on feature needs"
+      },
+      {
+        "order": 4,
+        "name": "Architecture Planning",
+        "description": "Identifies architectural decisions (state management, navigation, data persistence, API integration)"
+      },
+      {
+        "order": 5,
+        "name": "Phase Decomposition",
+        "description": "Breaks down implementation into logical phases with clear deliverables"
+      },
+      {
+        "order": 6,
+        "name": "Dependency Mapping",
+        "description": "Creates a dependency graph showing which phases must complete before others can start"
+      },
+      {
+        "order": 7,
+        "name": "Testing Strategy",
+        "description": "Defines testing approach for each phase (unit tests, widget tests, integration tests)"
+      },
+      {
+        "order": 8,
+        "name": "Complexity Estimation",
+        "description": "Estimates complexity and identifies potential risks for each phase"
+      },
+      {
+        "order": 9,
+        "name": "Plan Generation",
+        "description": "Compiles all analysis into a structured implementation plan"
+      },
+      {
+        "order": 10,
+        "name": "Automatic File Saving",
+        "description": "Automatically saves the plan to project-local directory (.claude/flutter-dev-assistant/plans/ or .kiro/plans/)"
+      }
+    ]
+  }
+}

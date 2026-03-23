@@ -1,0 +1,171 @@
+{
+  "name": "flutter-init",
+  "description": "Initialize a new Flutter project with production-ready templates and best practices configuration",
+  "purpose": {
+    "overview": "Scaffolds a new Flutter project using production-ready templates for pubspec.yaml and analysis_options.yaml. Automatically configures recommended dependencies, linting rules, and best practices for immediate development.",
+    "useCases": [
+      "Creating a new Flutter project from scratch",
+      "Setting up a new project for your team",
+      "Standardizing Flutter project structure across multiple projects",
+      "Ensuring all projects follow the same best practices",
+      "Skipping manual Flutter configuration"
+    ]
+  },
+  "usage": {
+    "syntax": "/flutter-init [project-name] [--path=/custom/path] [--copy-only] [--customize]",
+    "parameters": {
+      "required": {
+        "projectName": {
+          "type": "string",
+          "description": "Name of the new Flutter project (will be used in pubspec.yaml)"
+        }
+      },
+      "optional": {
+        "destination": {
+          "type": "string",
+          "description": "Destination path for the project (default: current directory)"
+        },
+        "copyOnly": {
+          "type": "boolean",
+          "description": "Only copy templates without creating Flutter project (useful if Flutter is already initialized)"
+        },
+        "customize": {
+          "type": "boolean",
+          "description": "Interactive mode to customize template values (app name, description, dependencies, etc.)"
+        },
+        "projectPath": {
+          "type": "string",
+          "description": "Absolute path to the Flutter project to analyze. If not provided, uses the current workspace directory."
+        }
+      }
+    }
+  },
+  "workflow": {
+    "steps": [
+      {
+        "order": 1,
+        "name": "Validation",
+        "description": "Verifies project name is valid and destination path exists"
+      },
+      {
+        "order": 2,
+        "name": "Template Loading",
+        "description": "Reads pubspec.yaml and analysis_options.yaml from templates/ directory"
+      },
+      {
+        "order": 3,
+        "name": "Project Creation",
+        "description": "Creates new Flutter project structure (if not using --copy-only)"
+      },
+      {
+        "order": 4,
+        "name": "Template Substitution",
+        "description": "Replaces placeholder values (project name, description, etc.)"
+      },
+      {
+        "order": 5,
+        "name": "Configuration Application",
+        "description": "Copies customized templates to the new project"
+      },
+      {
+        "order": 6,
+        "name": "Summary",
+        "description": "Displays configuration applied and next steps"
+      }
+    ]
+  },
+  "templates": {
+    "pubspecYaml": {
+      "size": "155 lines",
+      "focus": "Production-ready Flutter application",
+      "includes": [
+        "Riverpod 2.5.0+ (state management, recommended)",
+        "Dio + Retrofit (networking)",
+        "Freezed (code generation)",
+        "Flutter Secure Storage (sensitive data)",
+        "Best-in-class UI and testing libraries",
+        "Code generation tools (build_runner, freezed, etc.)"
+      ],
+      "versionNote": "Flutter: Check official Flutter archive for latest versions. Dependencies: Check pub.dev for latest package versions. Template versions are updated regularly but always verify compatibility with your target platform before running flutter pub get"
+    },
+    "analysisOptionsYaml": {
+      "size": "260 lines",
+      "focus": "Strict linting and code quality",
+      "includes": [
+        "All Flutter recommended rules",
+        "Strict type checking",
+        "Custom lint rules for Riverpod",
+        "Generated file exclusions",
+        "Performance and security rules"
+      ]
+    }
+  },
+  "customizationOptions": {
+    "stateManagement": [
+      {
+        "name": "Riverpod",
+        "recommended": true,
+        "description": "Modern, generator-based"
+      },
+      {
+        "name": "Bloc",
+        "recommended": false,
+        "description": "Event-driven architecture"
+      },
+      {
+        "name": "GetX",
+        "recommended": false,
+        "description": "All-in-one solution"
+      }
+    ],
+    "additionalLibraries": [
+      "Sentry for error tracking (recommended for production)",
+      "Firebase (analytics, crashlytics)",
+      "Additional storage solutions"
+    ],
+    "targetFlutterVersion": [
+      "Latest stable release",
+      "LTS release",
+      "Custom version (specify exact version number)"
+    ],
+    "note": "Check official Flutter archive for version numbers: https://docs.flutter.dev/install/archive"
+  },
+  "postInitSteps": [
+    "cd <project-name>",
+    "fvm flutter pub get",
+    "fvm flutter pub run build_runner build --delete-conflicting-outputs",
+    "fvm flutter run"
+  ],
+  "requirements": {
+    "flutterSdk": "Check official archive for latest stable version: https://docs.flutter.dev/install/archive",
+    "dartSdk": "Latest compatible version (included with Flutter)",
+    "fvm": "Recommended for version management",
+    "note": "Always use the latest stable Flutter version from the official archive for new projects. Verify compatibility with your target platforms (iOS, Android, Web, etc.)"
+  },
+  "relatedCommands": [
+    {
+      "command": "/flutter-verify",
+      "description": "Verify project configuration after initialization"
+    },
+    {
+      "command": "/flutter-plan",
+      "description": "Plan architecture for your initialized project"
+    },
+    {
+      "command": "/flutter-security",
+      "description": "Security audit for your project"
+    }
+  ],
+  "relatedTools": [
+    "Code Generation: Uses build_runner, freezed, json_serializable",
+    "Linting: Uses flutter_lints and custom_lint",
+    "Testing: Pre-configured with mocktail and integration_test"
+  ],
+  "notes": [
+    "Templates are stored in flutter-dev-assistant/templates/",
+    "Customization preserves all template best practices",
+    "Templates are regularly updated with latest Flutter best practices",
+    "Use --customize to adapt templates for specific project needs"
+  ],
+  "version": "1.0.0"
+}

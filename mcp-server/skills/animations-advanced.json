@@ -1,0 +1,36 @@
+{
+  "name": "animations-advanced",
+  "description": "Advanced Flutter animations including Rive interactive animations, Lottie After Effects animations, physics-based animations, and shimmer effects",
+  "origin": "Flutter Dev Assistant",
+  "topics": {
+    "riveAnimations": {
+      "package": "rive: ^0.13.0",
+      "recommended": true,
+      "features": ["Interactive animations", "State machines", "Triggers and booleans", "Number inputs", "Runtime control"],
+      "bestFor": "Complex interactive animations with state machines"
+    },
+    "lottieAnimations": {
+      "package": "lottie: ^3.0.0",
+      "features": ["After Effects animations", "JSON format", "Simple playback", "Loop control", "Speed control"],
+      "bestFor": "Designer-created animations from After Effects"
+    },
+    "physicsBasedAnimations": {
+      "features": ["SpringSimulation", "GravitySimulation", "FrictionSimulation", "Custom physics"],
+      "bestFor": "Natural, realistic motion"
+    },
+    "shimmerEffects": {
+      "package": "shimmer: ^3.0.0",
+      "features": ["Loading placeholders", "Skeleton screens", "Customizable colors", "Direction control"],
+      "bestFor": "Professional loading states"
+    }
+  },
+  "bestPractices": [
+    "Use Rive for complex interactive animations",
+    "Use Lottie for designer-created animations",
+    "Use physics-based animations for natural motion",
+    "Optimize animation performance with RepaintBoundary",
+    "Cache animations when possible",
+    "Test animations on low-end devices"
+  ],
+  "version": "1.0.0"
+}

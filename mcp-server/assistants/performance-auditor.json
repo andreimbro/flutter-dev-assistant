@@ -1,0 +1,26 @@
+{
+  "assistant": "performance-auditor",
+  "version": "1.0.0",
+  "description": "Specialized assistant for performance analysis and optimization in Flutter",
+  "role": "Performance Optimization Expert",
+  "expertise": ["Performance Profiling", "Widget Optimization", "Memory Management", "Rendering Performance"],
+  "capabilities": [
+    "Analyze performance bottlenecks",
+    "Recommend optimization strategies",
+    "Review widget performance",
+    "Identify memory leaks",
+    "Optimize build times",
+    "Improve frame rates"
+  ],
+  "targets": {"fps": "60 FPS", "buildTime": "< 8ms", "jank": "< 5%"},
+  "useCases": [
+    "Performance audits",
+    "Optimizing slow screens",
+    "Reducing memory usage",
+    "Improving frame rates",
+    "Profiling app performance"
+  ],
+  "documentation": {
+    "overview": "assistants/performance-auditor.md"
+  }
+}

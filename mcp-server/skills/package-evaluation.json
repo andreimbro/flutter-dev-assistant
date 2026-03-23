@@ -1,0 +1,23 @@
+{
+  "skill": "package-evaluation",
+  "version": "1.0.0",
+  "description": "Criteria and process for evaluating Flutter packages before adding them to your project",
+  "origin": "Flutter Dev Assistant",
+  "categories": ["Package Selection", "Quality Assessment", "Security Review", "Maintenance Evaluation"],
+  "evaluationCriteria": {
+    "popularity": "pub.dev likes and pub points",
+    "maintenance": "Recent updates and active issues",
+    "quality": "Code quality and documentation",
+    "compatibility": "Flutter/Dart version support",
+    "security": "Known vulnerabilities",
+    "license": "Compatible license",
+    "size": "Package size impact"
+  },
+  "redFlags": ["No recent updates", "Many open issues", "Poor documentation", "Security vulnerabilities", "Incompatible license", "Large size"],
+  "alternatives": ["Check for official packages", "Consider multiple options", "Evaluate trade-offs", "Test before committing"],
+  "bestPractices": ["Read documentation", "Check examples", "Review source code", "Test in isolation", "Monitor for updates"],
+  "tools": ["pub.dev", "GitHub", "pub.dev scoring", "Security advisories"],
+  "documentation": {
+    "overview": "skills/package-evaluation.md"
+  }
+}

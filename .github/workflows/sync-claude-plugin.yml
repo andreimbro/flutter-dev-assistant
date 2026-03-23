@@ -1,0 +1,25 @@
+name: Sync Claude Code Plugin
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'plugins/claude-code/**'
+
+jobs:
+  sync:
+    name: Push subtree to flutter-dev-assistant-claude
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push subtree
+        run: |
+          git remote add origin-claude https://x-access-token:${{ secrets.CLAUDE_REPO_PAT }}@github.com/andreimbro/flutter-dev-assistant-claude.git
+          git subtree split --prefix=plugins/claude-code -b claude-subtree
+          git push -f origin-claude claude-subtree:main
+        env:
+          CLAUDE_REPO_PAT: ${{ secrets.CLAUDE_REPO_PAT }}

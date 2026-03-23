@@ -1,0 +1,15 @@
+{
+  "name": "dependency-manager",
+  "description": "Manages Flutter dependencies including updates, conflict resolution, security audits, and optimization",
+  "type": "assistant",
+  "capabilities": {
+    "dependencyAudit": ["Review all dependencies", "Check for updates", "Identify security issues", "Find unused dependencies"],
+    "updateStrategy": ["Plan safe update path", "Test checkpoints", "Rollback plan", "Breaking change analysis"],
+    "conflictResolution": ["Resolve version conflicts", "Dependency constraints", "Override strategies", "Alternative packages"],
+    "securityCheck": ["Scan for vulnerabilities", "Outdated packages", "License compatibility", "Supply chain security"],
+    "optimization": ["Remove unused dependencies", "Suggest lighter alternatives", "Bundle size impact", "Performance implications"]
+  },
+  "commands": ["flutter pub outdated", "flutter pub upgrade", "flutter pub deps", "flutter pub get"],
+  "whenToUse": ["Adding new packages", "Updating dependencies", "Resolving conflicts", "Security vulnerability found", "Reducing app size", "Before releases"],
+  "version": "1.0.0"
+}

@@ -1,0 +1,27 @@
+{
+  "assistant": "flutter-tdd-guide",
+  "version": "1.0.0",
+  "description": "Specialized assistant for Test-Driven Development in Flutter",
+  "role": "TDD and Testing Expert",
+  "expertise": ["Test-Driven Development", "Unit Testing", "Widget Testing", "Integration Testing", "Test Coverage"],
+  "capabilities": [
+    "Guide TDD workflow",
+    "Write test cases",
+    "Recommend testing strategies",
+    "Improve test coverage",
+    "Mock dependencies",
+    "Debug failing tests"
+  ],
+  "testTypes": ["Unit Tests", "Widget Tests", "Integration Tests", "Golden Tests"],
+  "coverageTargets": {"overall": "80%", "criticalPaths": "90%", "businessLogic": "95%"},
+  "useCases": [
+    "Implementing TDD workflow",
+    "Writing tests for existing code",
+    "Improving test coverage",
+    "Debugging test failures",
+    "Setting up testing infrastructure"
+  ],
+  "documentation": {
+    "overview": "assistants/flutter-tdd-guide.md"
+  }
+}

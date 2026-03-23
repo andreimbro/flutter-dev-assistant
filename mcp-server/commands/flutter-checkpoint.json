@@ -1,0 +1,283 @@
+{
+  "name": "flutter-checkpoint",
+  "description": "Saves progress snapshots to track development progress and enable safe refactoring with checkpoint comparison",
+  "version": "1.0.0",
+  "purpose": {
+    "overview": "Captures a comprehensive snapshot of your project's current state, including test execution status, coverage metrics, build status, and code changes. Helps track progress over time, safely perform risky refactoring by creating restore points, and compare current state against previous checkpoints to identify improvements or regressions.",
+    "useCases": [
+      "Completing a significant development milestone",
+      "Before starting a risky refactoring",
+      "After fixing a critical bug",
+      "At the end of each development session",
+      "Before and after major changes to compare impact",
+      "To track progress toward quality goals"
+    ]
+  },
+  "usage": {
+    "syntax": "/flutter-checkpoint [description] [--compare=timestamp] [--list] [--show=timestamp] [--platform=claude|kiro]",
+    "parameters": {
+      "optional": {
+        "description": {
+          "type": "string",
+          "description": "Brief description of this checkpoint (e.g., 'Completed user authentication', 'Before refactoring payment service')"
+        },
+        "compare": {
+          "type": "string",
+          "description": "Compare current state with a previous checkpoint (use timestamp from --list)"
+        },
+        "list": {
+          "type": "boolean",
+          "description": "List all saved checkpoints in reverse chronological order"
+        },
+        "show": {
+          "type": "string",
+          "description": "Display details of a specific checkpoint"
+        },
+        "platform": {
+          "type": "enum",
+          "values": [
+            "claude",
+            "kiro",
+            "global"
+          ],
+          "default": "claude",
+          "description": "Specify storage location. 'claude': .claude/flutter-dev-assistant/checkpoints/ (project-local), 'kiro': .kiro/checkpoints/ (project-local), 'global': ~/.claude/flutter-dev-assistant/checkpoints/ (not recommended)"
+        },
+        "projectPath": {
+          "type": "string",
+          "description": "Absolute path to the Flutter project to analyze. If not provided, uses the current workspace directory."
+        }
+      }
+    }
+  },
+  "bestPractices": {
+    "defaultProjectLocalStorage": "By default, checkpoints save to Claude's project-local directory: .claude/flutter-dev-assistant/checkpoints/",
+    "recommendedWorkflow": [
+      "Create checkpoint with description (saves to .claude/flutter-dev-assistant/checkpoints/)",
+      "View all checkpoints: /flutter-checkpoint --list",
+      "Compare before and after: /flutter-checkpoint 'After optimization' --compare=2026-02-26T22-05-00Z",
+      "View detailed history: ls -lrt .claude/flutter-dev-assistant/checkpoints/",
+      "Commit to version control: git add .claude/ && git commit -m 'checkpoint: After optimization'"
+    ],
+    "keyAdvantages": [
+      "All Claude project data stays in the workspace",
+      "Separate from Kiro IDE configuration (.kiro/)",
+      "Can be committed to version control and shared with team",
+      "No dependency on user global config",
+      "Works consistently across different machines/environments",
+      "Safe refactoring with easy rollback reference",
+      "Progress tracking over time"
+    ],
+    "idealUseCases": [
+      "Before risky refactoring: Create checkpoint before major changes",
+      "End of day: Snapshot progress at end of development session",
+      "After features: Mark completion of significant features",
+      "Before releases: Capture stable baseline before release",
+      "Team collaboration: Commit checkpoints to track team progress"
+    ]
+  },
+  "checkpointDataStructure": {
+    "timestamp": "ISO 8601 format",
+    "description": "User-provided description",
+    "environment": {
+      "flutterVersion": "string",
+      "dartVersion": "string",
+      "channel": "string",
+      "usesFvm": "boolean",
+      "flutterCommand": "string"
+    },
+    "testStatus": {
+      "total": "number",
+      "passed": "number",
+      "failed": "number",
+      "skipped": "number"
+    },
+    "coverage": {
+      "overall": "percentage",
+      "criticalPaths": "percentage",
+      "businessLogic": "percentage"
+    },
+    "buildStatus": {
+      "success": "boolean",
+      "platform": "string",
+      "duration": "seconds",
+      "errors": "array"
+    },
+    "codeChanges": {
+      "filesModified": "number",
+      "linesAdded": "number",
+      "linesRemoved": "number",
+      "summary": "string"
+    },
+    "nextSteps": "array of strings",
+    "gitCommit": "string"
+  },
+  "checkpointRetention": {
+    "policy": "Checkpoints are never automatically deleted",
+    "recommendations": [
+      "Keep checkpoints for major milestones (feature completions)",
+      "Keep before/after risky refactorings",
+      "Keep release points",
+      "Keep monthly snapshots for long-term tracking",
+      "Manually delete old checkpoints from directory as needed"
+    ]
+  },
+  "comparisonAlgorithm": {
+    "testStatusDeltas": [
+      "Total tests: to.total - from.total",
+      "Passed tests: to.passed - from.passed",
+      "Failed tests: to.failed - from.failed",
+      "Pass rate: (to.passed/to.total * 100) - (from.passed/from.total * 100)"
+    ],
+    "coverageDeltas": [
+      "Overall: to.overall - from.overall",
+      "Critical paths: to.criticalPaths - from.criticalPaths",
+      "Business logic: to.businessLogic - from.businessLogic"
+    ],
+    "buildStatusDeltas": [
+      "Status change: from.success → to.success",
+      "Duration: to.duration - from.duration"
+    ],
+    "codeChangesDeltas": [
+      "Files modified: to.filesModified - from.filesModified",
+      "Lines added: to.linesAdded - from.linesAdded",
+      "Lines removed: to.linesRemoved - from.linesRemoved"
+    ],
+    "improvementDetection": [
+      "Passed tests increased",
+      "Failed tests decreased",
+      "Coverage percentages increased",
+      "Build duration decreased",
+      "Build status changed from failed to success"
+    ],
+    "regressionDetection": [
+      "Passed tests decreased",
+      "Failed tests increased",
+      "Coverage percentages decreased",
+      "Build duration increased significantly (> 20%)",
+      "Build status changed from success to failed"
+    ]
+  },
+  "fileNamingConvention": {
+    "format": "YYYY-MM-DDTHH-MM-SS.json",
+    "example": "2024-01-15T14-30-00.json",
+    "note": "ISO 8601 timestamp format with colons replaced by hyphens"
+  },
+  "notes": [
+    "Checkpoints are lightweight JSON files (typically < 5KB each)",
+    "Creating a checkpoint takes 20-60 seconds depending on project size",
+    "Checkpoints can be committed to git for team-wide progress tracking",
+    "Use descriptive checkpoint descriptions to make them easy to identify later",
+    "Consider creating checkpoints at regular intervals (daily, weekly) for long-term trend analysis",
+    "Checkpoint comparison is most useful when comparing adjacent checkpoints (before/after a change)",
+    "Next steps are automatically generated based on current state",
+    "For CI/CD integration, checkpoints can be created automatically after each successful build",
+    "Checkpoint data can be used to generate progress reports and quality trend charts"
+  ],
+  "relatedAssistants": [
+    {
+      "assistant": "Flutter TDD Guide",
+      "description": "Helps improve test coverage between checkpoints"
+    },
+    {
+      "assistant": "Flutter Build Resolver",
+      "description": "Helps fix build errors detected in checkpoints"
+    },
+    {
+      "assistant": "Flutter Architect",
+      "description": "Provides guidance on architectural improvements based on checkpoint trends"
+    }
+  ],
+  "relatedCommands": [
+    {
+      "command": "/flutter-verify",
+      "description": "Run comprehensive verification before creating a checkpoint"
+    },
+    {
+      "command": "/flutter-plan",
+      "description": "Create an implementation plan with checkpoints at each phase"
+    },
+    {
+      "command": "/flutter-orchestrate",
+      "description": "Coordinate multiple assistants with checkpoints between phases"
+    }
+  ],
+  "requirements": [
+    "Requirement 3.1: Capture current test execution status",
+    "Requirement 3.2: Record current coverage metrics",
+    "Requirement 3.3: Record current build status",
+    "Requirement 3.4: Generate a summary of recent code changes",
+    "Requirement 3.5: Identify and record next steps",
+    "Requirement 3.6: Store checkpoint with timestamp and description",
+    "Requirement 3.7: Show comparison between current state and previous checkpoints"
+  ],
+  "storageLocations": {
+    "claudeCode": {
+      "path": ".claude/flutter-dev-assistant/checkpoints/",
+      "default": true,
+      "description": "Project-local storage (recommended)",
+      "benefits": [
+        "All project data stays within the workspace",
+        "Can be committed to version control",
+        "Easy to share with team members",
+        "No dependency on user global config",
+        "Works across different machines/environments",
+        "Keeps Claude config separate from Kiro"
+      ]
+    },
+    "kiroIDE": {
+      "path": ".kiro/checkpoints/",
+      "default": false,
+      "description": "Use --platform=kiro flag"
+    },
+    "global": {
+      "path": "~/.claude/flutter-dev-assistant/checkpoints/",
+      "default": false,
+      "description": "Use --platform=global flag (not recommended - data is outside project workspace)"
+    }
+  },
+  "workflow": {
+    "steps": [
+      {
+        "order": 0,
+        "name": "Environment Detection",
+        "description": "Detects Flutter/FVM setup"
+      },
+      {
+        "order": 1,
+        "name": "Test Execution",
+        "description": "Runs fvm flutter test to capture current test status (total, passed, failed, skipped)"
+      },
+      {
+        "order": 2,
+        "name": "Coverage Capture",
+        "description": "Runs fvm flutter test --coverage and parses coverage data (overall, critical paths, business logic)"
+      },
+      {
+        "order": 3,
+        "name": "Build Status",
+        "description": "Executes fvm flutter build debug to verify current build status"
+      },
+      {
+        "order": 4,
+        "name": "Code Changes",
+        "description": "Analyzes recent git commits to generate summary of code changes (files modified, lines added/removed)"
+      },
+      {
+        "order": 5,
+        "name": "Next Steps",
+        "description": "Identifies logical next steps based on current state"
+      },
+      {
+        "order": 6,
+        "name": "Checkpoint Storage",
+        "description": "Saves all captured data to project-local directory"
+      },
+      {
+        "order": 7,
+        "name": "Comparison",
+        "description": "If --compare flag used: Calculates deltas between current state and specified checkpoint, highlighting improvements and regressions"
+      }
+    ]
+  }
+}

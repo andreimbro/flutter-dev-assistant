@@ -1,0 +1,18 @@
+{
+  "name": "audit-performance",
+  "description": "Workflow to identify and fix performance issues in Flutter apps including widget rebuilds, memory leaks, and rendering bottlenecks",
+  "origin": "Flutter Dev Assistant",
+  "type": "assistant-workflow",
+  "whenToUse": ["App feels slow or janky", "High memory usage", "Battery drain issues", "Before production release", "After major feature additions"],
+  "workflowSteps": [
+    {"step": 1, "name": "Performance Profiling", "description": "Use Flutter DevTools to identify bottlenecks"},
+    {"step": 2, "name": "Widget Rebuild Analysis", "description": "Identify unnecessary rebuilds and optimize widget tree"},
+    {"step": 3, "name": "Memory Leak Detection", "description": "Find and fix memory leaks (undisposed controllers, listeners, streams)"},
+    {"step": 4, "name": "Rendering Performance", "description": "Optimize rendering with RepaintBoundary, const constructors, and caching"},
+    {"step": 5, "name": "Asset Optimization", "description": "Optimize images, fonts, and other assets"},
+    {"step": 6, "name": "Implementation Plan", "description": "Prioritized list of fixes with code examples"}
+  ],
+  "commonIssues": ["Unnecessary widget rebuilds", "Missing const constructors", "Undisposed controllers", "Large images without caching", "Complex layouts without optimization"],
+  "deliverables": ["Performance report", "Bottleneck analysis", "Prioritized fix list", "Implementation guide", "Before/after metrics"],
+  "version": "1.0.0"
+}

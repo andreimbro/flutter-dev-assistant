@@ -1,0 +1,109 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        working-directory: ./mcp-server
+        run: npm ci
+
+      - name: Run tests
+        working-directory: ./mcp-server
+        run: npm test
+
+      - name: Extract version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Verify version consistency
+        run: |
+          PLUGIN_VERSION=$(jq -r '.version' .claude-plugin/plugin.json)
+          MARKETPLACE_VERSION=$(jq -r '.metadata.version' .claude-plugin/marketplace.json)
+          MCP_VERSION=$(jq -r '.version' mcp-server/package.json)
+          MANIFEST_VERSION=$(jq -r '.version' mcp-server/manifest.json)
+          
+          if [ "$PLUGIN_VERSION" != "${{ steps.get_version.outputs.VERSION }}" ]; then
+            echo "Version mismatch in plugin.json: $PLUGIN_VERSION != ${{ steps.get_version.outputs.VERSION }}"
+            exit 1
+          fi
+          
+          if [ "$MARKETPLACE_VERSION" != "${{ steps.get_version.outputs.VERSION }}" ]; then
+            echo "Version mismatch in marketplace.json: $MARKETPLACE_VERSION != ${{ steps.get_version.outputs.VERSION }}"
+            exit 1
+          fi
+          
+          if [ "$MCP_VERSION" != "${{ steps.get_version.outputs.VERSION }}" ]; then
+            echo "Version mismatch in mcp-server/package.json: $MCP_VERSION != ${{ steps.get_version.outputs.VERSION }}"
+            exit 1
+          fi
+          
+          if [ "$MANIFEST_VERSION" != "${{ steps.get_version.outputs.VERSION }}" ]; then
+            echo "Version mismatch in manifest.json: $MANIFEST_VERSION != ${{ steps.get_version.outputs.VERSION }}"
+            exit 1
+          fi
+
+      - name: Generate changelog
+        id: changelog
+        uses: metcalfc/changelog-generator@v4.3.1
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Flutter Dev Assistant v${{ steps.get_version.outputs.VERSION }}
+          body: |
+            ## What's Changed
+            
+            ${{ steps.changelog.outputs.changelog }}
+            
+            ## Installation
+            
+            ### Claude Code
+            ```bash
+            /plugin marketplace add andreimbro/flutter-dev-assistant
+            /plugin install flutter-dev-assistant@flutter-dev-assistant
+            ```
+            
+            ### Kiro IDE
+            ```bash
+            git clone https://github.com/andreimbro/flutter-dev-assistant.git
+            cd flutter-dev-assistant
+            ./install-kiro.sh
+            ```
+            
+            ## Documentation
+            
+            - [Quick Start Guide](https://github.com/andreimbro/flutter-dev-assistant/blob/main/docs/QUICKSTART.md)
+            - [Full Documentation](https://github.com/andreimbro/flutter-dev-assistant/tree/main/docs)
+            - [Changelog](https://github.com/andreimbro/flutter-dev-assistant/blob/main/CHANGELOG.md)
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "✅ Release v${{ steps.get_version.outputs.VERSION }} created successfully!"
+          echo "📦 Plugin is ready for marketplace submission"

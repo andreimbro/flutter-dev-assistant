@@ -1,0 +1,29 @@
+{
+  "name": "iot-network",
+  "description": "Network-based IoT connectivity including WiFi configuration, MQTT messaging, and WebSocket real-time communication in Flutter",
+  "origin": "Flutter Dev Assistant",
+  "wifi": {
+    "packages": ["wifi_iot: ^0.3.18", "network_info_plus: ^5.0.0"],
+    "features": ["Network scanning", "WiFi connection", "Network info", "Signal strength"],
+    "useCases": ["IoT device setup", "Network configuration", "Smart home apps"]
+  },
+  "mqtt": {
+    "package": "mqtt_client: ^10.2.0",
+    "features": ["Publish/Subscribe", "QoS levels", "Retained messages", "Last Will Testament", "TLS/SSL support"],
+    "useCases": ["IoT messaging", "Sensor data", "Device control", "Real-time updates"]
+  },
+  "webSocket": {
+    "package": "web_socket_channel: ^2.4.0",
+    "features": ["Bidirectional communication", "Real-time data", "Low latency", "Connection management"],
+    "useCases": ["Live chat", "Real-time dashboards", "Game servers", "Collaborative apps"]
+  },
+  "bestPractices": [
+    "Implement reconnection logic",
+    "Handle network state changes",
+    "Use appropriate QoS levels for MQTT",
+    "Implement heartbeat/ping for connection monitoring",
+    "Handle message queuing during disconnection",
+    "Test with poor network conditions"
+  ],
+  "version": "1.0.0"
+}

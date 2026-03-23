@@ -1,0 +1,21 @@
+{
+  "skill": "navigation-deeplinks",
+  "version": "1.0.0",
+  "description": "Advanced navigation patterns including deep linking, named routes, and navigation 2.0 with declarative routing",
+  "origin": "Flutter Dev Assistant",
+  "categories": ["Navigation 2.0", "Deep Linking", "Named Routes", "Route Guards", "Nested Navigation"],
+  "approaches": {
+    "navigator1": "Traditional imperative navigation",
+    "navigator2": "Declarative routing with Router widget",
+    "goRouter": "Popular third-party solution"
+  },
+  "deepLinking": {
+    "types": ["App Links (Android)", "Universal Links (iOS)", "Custom URL schemes"],
+    "implementation": ["Configure AndroidManifest.xml", "Configure Info.plist", "Handle incoming links", "Parse URL parameters"]
+  },
+  "bestPractices": ["Use named routes", "Implement route guards", "Handle back button", "Test deep links", "Support web URLs"],
+  "packages": ["go_router", "auto_route", "beamer"],
+  "documentation": {
+    "overview": "skills/navigation-deeplinks.md"
+  }
+}

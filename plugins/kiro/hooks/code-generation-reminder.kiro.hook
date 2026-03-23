@@ -1,0 +1,13 @@
+{
+  "name": "Code Generation Reminder",
+  "version": "1.0.0",
+  "description": "Reminds to run build_runner when editing files with code generation annotations",
+  "when": {
+    "type": "fileEdited",
+    "patterns": ["*.dart"]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "if grep -q '@freezed\\|@riverpod\\|@JsonSerializable' \"$FILE_PATH\" 2>/dev/null; then echo '[Hook] Code generation needed. Run: flutter pub run build_runner build'; fi"
+  }
+}
