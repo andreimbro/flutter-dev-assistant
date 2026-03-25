@@ -31,8 +31,6 @@ jobs:
         env:
           PAT_TOKEN: ${{ secrets.CLAUDE_REPO_PAT }}
         run: |
-          git config --global url."https://x-access-token:${PAT_TOKEN}@github.com/".insteadOf "https://github.com/"
-          git remote add origin-claude "https://x-access-token:${PAT_TOKEN}@github.com/andreimbro/flutter-dev-assistant-claude.git"
           git subtree split --prefix=plugins/claude-code -b claude-subtree
-          git push -f origin-claude claude-subtree:main
+          git push -f "https://x-access-token:${PAT_TOKEN}@github.com/andreimbro/flutter-dev-assistant-claude.git" claude-subtree:main
           echo "✅ Plugin synced to flutter-dev-assistant-claude"
