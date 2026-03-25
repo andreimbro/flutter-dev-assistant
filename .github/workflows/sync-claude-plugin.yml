@@ -32,8 +32,8 @@ jobs:
         env:
           PAT_TOKEN: ${{ secrets.CLAUDE_REPO_PAT }}
         run: |
+          git config --global credential.helper store
+          echo "https://andreimbro:${PAT_TOKEN}@github.com" > ~/.git-credentials
           git subtree split --prefix=plugins/claude-code -b claude-subtree
-          git -c "http.extraheader=Authorization: Bearer ${PAT_TOKEN}" push -f \
-            https://github.com/andreimbro/flutter-dev-assistant-claude.git \
-            claude-subtree:main
+          git push -f https://github.com/andreimbro/flutter-dev-assistant-claude.git claude-subtree:main
           echo "✅ Plugin synced to flutter-dev-assistant-claude"
