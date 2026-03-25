@@ -15,6 +15,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Validate plugin configuration
         working-directory: ./plugins/claude-code
@@ -31,7 +32,8 @@ jobs:
         env:
           PAT_TOKEN: ${{ secrets.CLAUDE_REPO_PAT }}
         run: |
-          git config --global --unset-all http.https://github.com/.extraheader || true
           git subtree split --prefix=plugins/claude-code -b claude-subtree
-          git push -f "https://x-access-token:${PAT_TOKEN}@github.com/andreimbro/flutter-dev-assistant-claude.git" claude-subtree:main
+          git -c "http.extraheader=Authorization: Bearer ${PAT_TOKEN}" push -f \
+            https://github.com/andreimbro/flutter-dev-assistant-claude.git \
+            claude-subtree:main
           echo "✅ Plugin synced to flutter-dev-assistant-claude"
