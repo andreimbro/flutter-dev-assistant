@@ -101,3 +101,4 @@ The `plugins/claude-code/` directory in the monorepo is the source of truth.
 Licensed under the [Apache License 2.0](LICENSE).
 
 Copyright 2026 andreimbro
+
