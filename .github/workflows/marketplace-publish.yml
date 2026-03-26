@@ -94,6 +94,7 @@ jobs:
           ls -lh "$PACKAGE_PATH"
 
       - name: Register with marketplace
+        continue-on-error: true
         env:
           MARKETPLACE_API_TOKEN: ${{ secrets.MARKETPLACE_API_TOKEN }}
           PLUGIN_VERSION: ${{ steps.get_version.outputs.VERSION }}
