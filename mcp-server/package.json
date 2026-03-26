@@ -23,7 +23,7 @@
   "author": "andreimbro",
   "license": "Apache-2.0",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "~1.0.0"
+    "@modelcontextprotocol/sdk": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
