@@ -80,6 +80,7 @@ jobs:
             !mcp-server/node_modules
             !CHANGELOG.md
             !CONTRIBUTING.md
+            !docs/**
 
   security-audit:
     name: Security Audit
